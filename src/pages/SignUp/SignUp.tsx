@@ -13,7 +13,7 @@ const SignUp: React.FC = () => {
         <h2 className="text-2xl font-semibold text-center text-[#30415A]">
           Sign Up
         </h2>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="mt-4 space-y-6" onSubmit={handleSubmit}>
           <div>
             <label
               htmlFor="name"
@@ -33,7 +33,7 @@ const SignUp: React.FC = () => {
               htmlFor="email"
               className="block text-sm font-medium text-gray-700"
             >
-              Email address
+              Email
             </label>
             <input
               type="email"
@@ -44,14 +44,27 @@ const SignUp: React.FC = () => {
           </div>
           <div>
             <label
-              htmlFor="role"
+              htmlFor="Address"
               className="block text-sm font-medium text-gray-700"
             >
-              Role
+              Address
             </label>
             <input
               type="text"
-              id="role"
+              id="Address"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#30415A] focus:border-[#30415A] sm:text-sm"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="phone"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Phone
+            </label>
+            <input
+              type="text"
+              id="phone"
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#30415A] focus:border-[#30415A] sm:text-sm"
             />
           </div>
