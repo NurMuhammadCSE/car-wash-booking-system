@@ -26,7 +26,7 @@ const Review = ({ reviews, onSubmit }) => {
         </h2>
 
         {/* Rating and Feedback Input */}
-        {/* <div className="bg-white p-6 rounded-lg shadow-lg mb-8">
+        <div className="bg-white p-6 rounded-lg shadow-lg mb-8">
           <div className="flex justify-center items-center mb-4">
             {[...Array(5)].map((star, index) => {
               const ratingValue = index + 1;
@@ -42,9 +42,7 @@ const Review = ({ reviews, onSubmit }) => {
                   <FaStar
                     size={40}
                     color={
-                      ratingValue <= (hover || rating)
-                        ? "#ffc107"
-                        : "#e4e5e9"
+                      ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"
                     }
                     onMouseEnter={() => setHover(ratingValue)}
                     onMouseLeave={() => setHover(0)}
@@ -69,7 +67,7 @@ const Review = ({ reviews, onSubmit }) => {
           >
             Submit Review
           </button>
-        </div> */}
+        </div>
 
         <ReviewForm></ReviewForm>
 

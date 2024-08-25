@@ -8,7 +8,7 @@ const services = [
       description: "Professional car Full-Service",
       duration: 60,
       price: 700,
-      imageUrl: "https://example.com/car-wash.jpg",
+      imageUrl: "https://rb.gy/dmrzfs",
     },
     {
       _id: "66b9c15d0fb598abe54bc457",
@@ -16,7 +16,7 @@ const services = [
       description: "Thorough cleaning of the car's interior",
       duration: 45,
       price: 500,
-      imageUrl: "https://example.com/interior-cleaning.jpg",
+      imageUrl: "https://rb.gy/dmrzfs",
     },
     {
       _id: "66b9c15d0fb598abe54bc456",
@@ -24,7 +24,7 @@ const services = [
       description: "Professional car Full-Service",
       duration: 60,
       price: 700,
-      imageUrl: "https://example.com/car-wash.jpg",
+      imageUrl: "https://rb.gy/dmrzfs",
     },
     {
       _id: "66b9c15d0fb598abe54bc457",
@@ -32,7 +32,7 @@ const services = [
       description: "Thorough cleaning of the car's interior",
       duration: 45,
       price: 500,
-      imageUrl: "https://example.com/interior-cleaning.jpg",
+      imageUrl: "https://rb.gy/dmrzfs",
     },
     {
       _id: "66b9c15d0fb598abe54bc456",
@@ -40,7 +40,7 @@ const services = [
       description: "Professional car Full-Service",
       duration: 60,
       price: 700,
-      imageUrl: "https://example.com/car-wash.jpg",
+      imageUrl: "https://rb.gy/dmrzfs",
     },
     {
       _id: "66b9c15d0fb598abe54bc457",
@@ -48,7 +48,7 @@ const services = [
       description: "Thorough cleaning of the car's interior",
       duration: 45,
       price: 500,
-      imageUrl: "https://example.com/interior-cleaning.jpg",
+      imageUrl: "https://rb.gy/dmrzfs",
     },
     // Add more services
   ];
