@@ -1,9 +1,9 @@
-import ServiceCard from "@/components/ServiceCard/ServiceCard";
+import FeaturedServiceCard from "@/components/FeaturedServiceCard/FeaturedServiceCard";
 import getAllProducts from "@/data/ServicesData";
 
 const FeaturedServices = () => {
   const services = getAllProducts();
-  console.log(services)
+  console.log(services);
 
   return (
     <section className="py-12 bg-gray-100">
@@ -14,7 +14,10 @@ const FeaturedServices = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service) => (
-            <ServiceCard key={service._id} service={service}></ServiceCard>
+            <FeaturedServiceCard
+              key={service._id}
+              service={service}
+            ></FeaturedServiceCard>
           ))}
         </div>
       </div>

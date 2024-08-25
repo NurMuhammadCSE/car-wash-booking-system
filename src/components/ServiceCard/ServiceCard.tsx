@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 const ServiceCard = ({ service }: { service: any }) => {
-  console.log(service);
   return (
     <div>
       <div
@@ -20,9 +19,9 @@ const ServiceCard = ({ service }: { service: any }) => {
           </h3>
           <p className="text-gray-700 mb-4">{service.description}</p>
           <p className="text-lg font-bold text-gray-900">${service.price}</p>
-          {/* <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-500">
             Duration: {service.duration} minutes
-          </p> */}
+          </p>
           <a
             href={`/services/${service._id}`}
             className="inline-block mt-4 bg-[#30415A] text-white py-2 px-4 rounded-lg hover:bg-[#1e2c42] transition-colors duration-300"

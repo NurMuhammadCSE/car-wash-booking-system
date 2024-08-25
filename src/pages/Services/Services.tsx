@@ -3,7 +3,7 @@ import getAllProducts from "@/data/ServicesData";
 
 const Services = () => {
   const services = getAllProducts();
-  console.log(services);
+
   return (
     <section className="py-12 bg-gray-100">
       <div className="container mx-auto px-4 text-center">
