@@ -1,17 +1,13 @@
-import ServiceData from "@/data/ServicesData";
 import Banner from "../Banner/Banner";
-import ReviewsData from "@/data/ReviewsData";
 import ReviewForm from "../Reviews/ReviewForm";
-import Reviews from "../Reviews/Reviews";
+import FeaturedServices from "../Services/FeaturedServices";
 
 const Home = () => {
   return (
     <div>
       <Banner></Banner>
-      <ServiceData></ServiceData>
+      <FeaturedServices></FeaturedServices>
       <ReviewForm></ReviewForm>
-      {/* <Reviews></Reviews> */}
-      {/* <ReviewsData></ReviewsData> */}
     </div>
   );
 };
