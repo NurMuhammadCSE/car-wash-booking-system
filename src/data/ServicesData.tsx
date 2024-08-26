@@ -34,7 +34,7 @@ export const services = [
   },
   {
     _id: "5",
-    name: "Premium Sonax Nano Polish & Protect",
+    name: "Premium Sonax Nano Polish",
     description: "Professional car Full-Service",
     duration: 60,
     price: 10000,

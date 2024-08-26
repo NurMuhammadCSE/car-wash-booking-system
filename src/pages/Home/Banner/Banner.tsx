@@ -2,32 +2,41 @@ import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
-    <div
-      className="mt-3 bg-cover bg-center text-white py-24 px-4 text-center relative"
-      style={{
-        backgroundImage: "url('https://rb.gy/dmrzfs')",
-      }}
-    >
+    <section className="mt-3 relative text-white overflow-hidden">
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: `url('https://rb.gy/dmrzfs')`,
+        }}
+      ></div>
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-gray-800/60"></div>
-
-      <div className="container mx-auto relative z-10">
+      {/* Content Wrapper */}
+      <div className="relative container mx-auto px-4 py-24 lg:py-32 text-center">
         <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
-          Welcome to Car Washing Booking System
+          Shine Brighter with Our Premium Car Wash Services
         </h1>
-        <p className="text-xl md:text-2xl mb-8 drop-shadow-lg">
-          Simplify your car wash booking experience.
+        <p className="text-lg md:text-xl mb-8">
+          Experience the ultimate in car care with our top-notch services
+          designed to keep your vehicle looking its best.
         </p>
-
-        <Link
-          aria-label="Book a Service"
-          className="bg-yellow-400 text-black font-semibold py-3 px-8 rounded-lg hover:bg-[#30415A] hover:text-white transition duration-300 shadow-lg text-xl md:text-2xl"
-          to={"/services"}
-        >
-          Book a Service
-        </Link>
+        <div className="flex justify-center gap-4">
+          <Link
+            to="/services"
+            className="bg-yellow-400 text-black font-semibold py-3 px-4 rounded-lg hover:bg-[#30415A] hover:text-white transition duration-300 shadow-lg text-xl md:text-2xl sm:text-xl"
+          >
+            Explore Services
+          </Link>
+          <Link
+            to="/book"
+            className="bg-yellow-400 text-black font-semibold py-3 px-4 rounded-lg hover:bg-[#30415A] hover:text-white transition duration-300 shadow-lg text-xl md:text-2xl sm:text-xl"
+          >
+            Book Now
+          </Link>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
