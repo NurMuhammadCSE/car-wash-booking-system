@@ -26,7 +26,23 @@ const authApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getServiceById: builder.query({
+      query: (id: string) => ({
+        url: `/services/${id}`,
+        method: "GET",
+      }),
+    }),
+    getSlotsByServiceId: builder.query({
+      query: (id: string) => ({
+        url: `/slots/availability?serviceId=${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetServicesQuery } = authApi;
+export const {
+  useGetServicesQuery,
+  useGetServiceByIdQuery,
+  useGetSlotsByServiceIdQuery,
+} = authApi;
