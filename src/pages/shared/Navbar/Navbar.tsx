@@ -3,12 +3,19 @@
 import { Moon } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "@/redux/hooks";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  // Get the user's authentication state
+  const { token, user } = useAppSelector((state) => state.user);
+  
+  // Dummy user avatar; replace with actual data from user profile if available
+  const userAvatar = "https://avatar.iran.liara.run/public";
 
   return (
     <header className="bg-[#30415A] text-white rounded-sm px-3">
@@ -35,15 +42,25 @@ const Navbar = () => {
                 Booking
               </Link>
             </li>
-            <li>
-              <Link
-                className="rounded-lg backdrop-blur-[2px] p-1 inline-block text-white hover:bg-white hover:text-black transition duration-300"
-                to="/login"
-              >
-                Login
-              </Link>
-            </li>
-
+            {/* Conditionally render login or avatar */}
+            {!token ? (
+              <li>
+                <Link
+                  className="rounded-lg backdrop-blur-[2px] p-1 inline-block text-white hover:bg-white hover:text-black transition duration-300"
+                  to="/login"
+                >
+                  Login
+                </Link>
+              </li>
+            ) : (
+              <li>
+                <img
+                  src={userAvatar}
+                  alt="User Avatar"
+                  className="w-8 h-8 rounded-full cursor-pointer"
+                />
+              </li>
+            )}
             <li>
               <button
                 aria-label="Toggle Dark Mode"
@@ -110,15 +127,26 @@ const Navbar = () => {
               Booking
             </Link>
           </li>
-          <li className="relative">
-            <Link
-              className="rounded-lg backdrop-blur-[2px] p-1 inline-block text-white hover:bg-white hover:text-black transition duration-300"
-              to="/login"
-              onClick={handleMenuToggle}
-            >
-              Login
-            </Link>
-          </li>
+          {/* Conditionally render login or avatar */}
+          {!token ? (
+            <li className="relative">
+              <Link
+                className="rounded-lg backdrop-blur-[2px] p-1 inline-block text-white hover:bg-white hover:text-black transition duration-300"
+                to="/login"
+                onClick={handleMenuToggle}
+              >
+                Login
+              </Link>
+            </li>
+          ) : (
+            <li>
+              <img
+                src={userAvatar}
+                alt="User Avatar"
+                className="w-8 h-8 rounded-full cursor-pointer"
+              />
+            </li>
+          )}
           <li>
             <button
               aria-label="Toggle Dark Mode"

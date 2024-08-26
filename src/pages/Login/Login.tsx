@@ -4,14 +4,16 @@ import { setToken } from "@/redux/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
   const { email, password } = useAppSelector((state) => state.login);
 
-  const [Login, { data }] = useLoginMutation();
+  const [Login] = useLoginMutation();
 
   const { token } = useAppSelector((state: RootState) => state.user);
   console.log("token", token);
@@ -26,6 +28,7 @@ const Login: React.FC = () => {
 
     console.log("token", token, "user:", user);
     dispatch(setToken(token));
+    navigate('/')
   };
 
   return (

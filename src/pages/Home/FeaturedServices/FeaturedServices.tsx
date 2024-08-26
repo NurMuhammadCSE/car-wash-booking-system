@@ -1,11 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import FeaturedServiceCard from "@/components/FeaturedServiceCard/FeaturedServiceCard";
-import getAllProducts from "@/data/ServicesData";
 import { useGetServicesQuery } from "@/redux/api/servicesApi";
 
 const FeaturedServices = () => {
-  // const services = getAllProducts();
-  const { data, isError, isLoading } = useGetServicesQuery(undefined);
-  // console.log(data.data);
+  const { data, isError, isLoading } = useGetServicesQuery("");
 
   return (
     <section className="py-12 bg-gray-100">
@@ -14,14 +12,17 @@ const FeaturedServices = () => {
           Featured Services
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {data?.data?.map((service) => (
-            <FeaturedServiceCard
-              key={service._id}
-              service={service}
-            ></FeaturedServiceCard>
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="text-2xl text-[#30415A]">Loading...</div>
+        ) : isError ? (
+          <div className="text-2xl text-red-500">Something went wrong!</div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {data?.data?.slice(0, 6).map((service: any) => (
+              <FeaturedServiceCard key={service._id} service={service} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
