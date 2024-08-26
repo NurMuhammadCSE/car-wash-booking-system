@@ -1,19 +1,31 @@
 import { useLoginMutation } from "@/redux/api/authApi";
 import { setLoginEmail, setLoginPassword } from "@/redux/features/loginSlice";
+import { setToken } from "@/redux/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { RootState } from "@/redux/store";
 import React from "react";
 import { Link } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
   const { email, password } = useAppSelector((state) => state.login);
 
-  const [Login] = useLoginMutation();
+  const [Login, { data }] = useLoginMutation();
+
+  const { token } = useAppSelector((state: RootState) => state.user);
+  console.log("token", token);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const user = await Login({ email, password });
-    console.log({ email, password }, user);
+    const { data } = await Login({ email, password });
+
+    const { token } = data;
+
+    const user = jwtDecode(token);
+
+    console.log("token", token, "user:", user);
+    dispatch(setToken(token));
   };
 
   return (
