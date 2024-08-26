@@ -7,6 +7,8 @@ import {
 import { useParams } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import { useAppSelector } from "@/redux/hooks";
+import { useCreateBookingMutation } from "@/redux/api/bookingApi";
 
 const ServiceDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -26,20 +28,44 @@ const ServiceDetails = () => {
     isLoading: isSlotsLoading,
     isError: isSlotsError,
   } = useGetSlotsByServiceIdQuery(serviceData?.data?._id);
+  // console.log(slotsData.data)
 
-  const handleSlotClick = (slotId: string) => {
-    setSelectedSlot(slotId);
-  };
+  // Fetch User Data
+  const { token, user } = useAppSelector((state) => state.user);
+  // console.log(user.userId)
 
-  const handleDateChange = (date: Date) => {
-    setSelectedDate(date);
-    setSelectedSlot(null);
-  };
+  const [createBooking] = useCreateBookingMutation();
 
-  const handleBooking = () => {
-    // Handle booking logic here
-    console.log("Booking slot:", selectedSlot);
+  // const handleSlotClick = (slotId: string) => {
+  //   setSelectedSlot(slotId);
+  // };
+
+  // const handleDateChange = (date: Date) => {
+  //   setSelectedDate(date);
+  //   setSelectedSlot(null);
+  // };
+
+  const handleBooking = async () => {
+    if (!selectedSlot || !serviceData || !user.userId) {
+      console.error("Missing booking information");
+      return;
+    }
+  
+    const bookingInfo = {
+      serviceId: serviceData.data._id,
+      slotId: selectedSlot,
+      customer: user.userId,
+      token: token, // Pass the token here
+    };
+  
+    try {
+      const response = await createBooking(bookingInfo).unwrap();
+      console.log("Booking successful:", response);
+    } catch (error) {
+      console.error("Failed to create booking:", error);
+    }
   };
+  
 
   if (isServiceLoading || isSlotsLoading) {
     return <div className="text-center text-lg text-gray-600">Loading...</div>;
@@ -98,8 +124,8 @@ const ServiceDetails = () => {
           {slotsData?.data?.map((slot: any) => (
             <button
               key={slot._id}
-              onClick={() => handleSlotClick(slot._id)}
-              disabled={slot.isBooked !== "available"}
+              onClick={() => setSelectedSlot(slot._id)}
+              disabled={slot.isBooked === "booked"}
               className={`p-4 rounded-lg border-2 font-semibold transition-transform transform hover:scale-105 ${
                 slot.isBooked === "available"
                   ? "bg-green-500 text-white hover:bg-green-600 hover:shadow-lg"

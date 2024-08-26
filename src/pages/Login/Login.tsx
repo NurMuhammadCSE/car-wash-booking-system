@@ -1,6 +1,6 @@
 import { useLoginMutation } from "@/redux/api/authApi";
 import { setLoginEmail, setLoginPassword } from "@/redux/features/loginSlice";
-import { setToken } from "@/redux/features/userSlice";
+import { setToken, setUser } from "@/redux/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
 import React from "react";
@@ -28,6 +28,7 @@ const Login: React.FC = () => {
 
     console.log("token", token, "user:", user);
     dispatch(setToken(token));
+    dispatch(setUser(user));
     navigate('/')
   };
 

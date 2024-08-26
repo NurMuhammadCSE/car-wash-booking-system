@@ -4,7 +4,6 @@ const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getServices: builder.query({
       query: ({ searchTerm, sort, filter }) => {
-        console.log(searchTerm, sort, filter);
         let queryString = `/services?`;
 
         if (searchTerm) {
