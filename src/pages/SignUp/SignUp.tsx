@@ -1,9 +1,34 @@
+import { useSignUpMutation } from "@/redux/api/authApi";
+import {
+  setAddress,
+  setEmail,
+  setName,
+  setPassword,
+  setPhone,
+} from "@/redux/features/signup";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import React from "react";
 import { Link } from "react-router-dom";
 
 const SignUp: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  const { name, email, address, phone, password } = useAppSelector(
+    (state) => state.signUp
+  );
+
+  const [signUp] = useSignUpMutation();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const user = await signUp({
+      name,
+      email,
+      address,
+      phone,
+      password,
+    });
+    console.log({ name, email, password, phone, address }, user);
     // Handle form submission logic
   };
 
@@ -24,6 +49,8 @@ const SignUp: React.FC = () => {
             <input
               type="text"
               id="name"
+              value={name}
+              onChange={(e) => dispatch(setName(e.target.value))}
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#30415A] focus:border-[#30415A] sm:text-sm"
             />
@@ -38,6 +65,8 @@ const SignUp: React.FC = () => {
             <input
               type="email"
               id="email"
+              value={email}
+              onChange={(e) => dispatch(setEmail(e.target.value))}
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#30415A] focus:border-[#30415A] sm:text-sm"
             />
@@ -52,6 +81,9 @@ const SignUp: React.FC = () => {
             <input
               type="text"
               id="Address"
+              value={address}
+              onChange={(e) => dispatch(setAddress(e.target.value))}
+              required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#30415A] focus:border-[#30415A] sm:text-sm"
             />
           </div>
@@ -65,6 +97,9 @@ const SignUp: React.FC = () => {
             <input
               type="text"
               id="phone"
+              value={phone}
+              onChange={(e) => dispatch(setPhone(e.target.value))}
+              required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#30415A] focus:border-[#30415A] sm:text-sm"
             />
           </div>
@@ -78,6 +113,8 @@ const SignUp: React.FC = () => {
             <input
               type="password"
               id="password"
+              value={password}
+              onChange={(e) => dispatch(setPassword(e.target.value))}
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#30415A] focus:border-[#30415A] sm:text-sm"
             />
