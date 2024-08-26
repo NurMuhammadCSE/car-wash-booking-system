@@ -5,7 +5,7 @@ import {
   setName,
   setPassword,
   setPhone,
-} from "@/redux/features/signup";
+} from "@/redux/features/signupSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import React from "react";
 import { Link } from "react-router-dom";

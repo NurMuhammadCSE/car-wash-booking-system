@@ -1,10 +1,19 @@
+import { useLoginMutation } from "@/redux/api/authApi";
+import { setLoginEmail, setLoginPassword } from "@/redux/features/loginSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import React from "react";
 import { Link } from "react-router-dom";
 
 const Login: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { email, password } = useAppSelector((state) => state.login);
+
+  const [Login] = useLoginMutation();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic
+    const user = await Login({ email, password });
+    console.log({ email, password }, user);
   };
 
   return (
@@ -24,6 +33,8 @@ const Login: React.FC = () => {
             <input
               type="text"
               id="username"
+              value={email}
+              onChange={(e) => dispatch(setLoginEmail(e.target.value))}
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#30415A] focus:border-[#30415A] sm:text-sm"
             />
@@ -38,6 +49,8 @@ const Login: React.FC = () => {
             <input
               type="password"
               id="password"
+              value={password}
+              onChange={(e) => dispatch(setLoginPassword(e.target.value))}
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#30415A] focus:border-[#30415A] sm:text-sm"
             />

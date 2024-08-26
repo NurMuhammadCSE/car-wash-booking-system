@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "./api/baseApi";
 import searchReducer from "./features/searchSlice";
-import signUpReducer from "./features/signup";
+import signUpReducer from "./features/signupSlice";
+import loginReducer from "./features/loginSlice";
 
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     search: searchReducer,
     signUp: signUpReducer,
+    login: loginReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(
