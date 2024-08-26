@@ -3,7 +3,7 @@ import Main from "@/layout/Main";
 import Home from "@/pages/Home/Home/Home";
 import Login from "@/pages/Login/Login";
 import ServiceDetails from "@/pages/ServiceDetails/ServiceDetails";
-import Services from "@/pages/Services/Services";
+import Services from "@/pages/Services/ServicesChatgpt";
 import SignUp from "@/pages/SignUp/SignUp";
 import { createBrowserRouter } from "react-router-dom";
 

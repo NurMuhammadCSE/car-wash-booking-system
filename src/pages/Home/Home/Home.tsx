@@ -1,6 +1,6 @@
 import Banner from "../Banner/Banner";
 import ReviewForm from "../Reviews/ReviewForm";
-import FeaturedServices from "../Services/FeaturedServices";
+import FeaturedServices from "../FeaturedServices/FeaturedServices";
 
 const Home = () => {
   return (

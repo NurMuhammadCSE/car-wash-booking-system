@@ -3,7 +3,7 @@ const FeaturedServiceCard = ({ service }: { service: any }) => {
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105 cursor-pointer">
       <img
-        src={service.imageUrl}
+        src={service.image}
         alt={service.name}
         className="w-full h-48 object-cover"
       />
