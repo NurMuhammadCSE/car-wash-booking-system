@@ -8,7 +8,7 @@ const ServiceCard = ({ service }: { service: any }) => {
         className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105"
       >
         <img
-          src={service.imageUrl}
+          src={service.image}
           alt={service.name}
           className="w-full h-48 object-cover"
         />
