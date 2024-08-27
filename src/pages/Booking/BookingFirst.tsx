@@ -1,13 +1,13 @@
-// src/pages/BookingPage.tsx
-import { useParams, useNavigate } from "react-router-dom";
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useGetBookingQuery } from "@/redux/api/bookingApi";
 import {
   useGetServiceByIdQuery,
-  useGetSingleSlotsByIdQuery,
+  useGetSlotsByServiceIdQuery,
 } from "@/redux/api/servicesApi";
-import Swal from "sweetalert2";
-import { clearSlots } from "@/redux/features/slotSlice";
+import { useAppSelector } from "@/redux/hooks";
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 interface FormData {
   userName: string;
@@ -15,55 +15,15 @@ interface FormData {
   timeSlot: string;
 }
 
-const BookingPage = () => {
-  const { serviceId, slotId } = useParams<{
-    serviceId: string;
-    slotId: string;
-  }>();
+const Booking = () => {
+  const { id, slotId } = useParams<{ id: string; slotId: string }>();
 
-  const selectedSlots = useAppSelector((state) => state.slot.selectedSlots);
-  const { data: serviceData } = useGetServiceByIdQuery(serviceId!);
-  const { user } = useAppSelector((state) => state.user);
+  const { token, user } = useAppSelector((state) => state.user);
 
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  const { data } = useGetBookingQuery(token);
 
-  selectedSlots.map((slot) => {
-    const { data: slotData } = useGetSingleSlotsByIdQuery(slot!);
-  });
-
-  const { data: slotData } = useGetSingleSlotsByIdQuery(slotId!);
-
-  const handlePayNow = async () => {
-    if (!selectedSlots.length) {
-      Swal.fire({
-        icon: "error",
-        title: "No slots selected",
-        text: "Please select at least one slot.",
-      });
-      return;
-    }
-
-    try {
-      // Redirect to AAMARPAY
-      window.location.href = `https://aamarpay.com/?serviceId=${serviceId}&slots=${selectedSlots
-        .map((slot) => `${slot.startTime}-${slot.endTime}`)
-        .join(",")}`;
-
-      // Clear selected slots after payment
-      dispatch(clearSlots());
-
-      // Redirect to success page after payment
-      navigate("/success");
-    } catch (error) {
-      console.error("Payment failed", error);
-      Swal.fire({
-        icon: "error",
-        title: "Payment failed",
-        text: "Please try again later.",
-      });
-    }
-  };
+  const { data: serviceData } = useGetServiceByIdQuery(id!);
+  const { data: slotData } = useGetSlotsByServiceIdQuery(slotId!);
 
   const {
     register,
@@ -73,7 +33,7 @@ const BookingPage = () => {
     defaultValues: {
       userName: user?.name || "",
       email: user?.email || "",
-      timeSlot: slotData?.data?.startTime || "",
+      timeSlot: slotData?.startTime || "",
     },
   });
 
@@ -99,34 +59,33 @@ const BookingPage = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-      {/* Left Side: Selected Service and Slots */}
-      <div className="p-6 bg-white rounded-lg shadow-lg">
-        <h2 className="text-3xl font-bold mb-4">{serviceData?.data?.name}</h2>
-        <img
-          src={serviceData?.data?.image}
-          alt={serviceData?.data?.name}
-          className="w-full h-48 object-cover rounded-lg mb-4"
-        />
-        <h3 className="text-xl font-semibold mb-2">Selected Slots:</h3>
+    <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg flex gap-8">
+      {/* Left Side */}
+      <div className="flex-1 p-6 bg-gray-100 rounded-lg">
+        <h2 className="text-2xl font-semibold mb-4">Selected Service</h2>
+        {data?.data?.map((service, index) => (
+          <div key={index} className="flex items-center mb-4">
+            <img
+              src={service?.service?.image}
+              alt={service?.service?.name}
+              className="w-24 h-24 object-cover rounded-lg"
+            />
+            <div className="ml-4">
+              <h3 className="text-xl font-bold">{service?.service?.name}</h3>
+              <p className="text-gray-700">{service?.service?.description}</p>
+            </div>
+          </div>
+        ))}
+
+        <h2 className="text-2xl font-semibold mb-4">Selected Time Slot</h2>
         <div className="p-4 bg-blue-100 rounded-lg">
           <p className="text-lg font-semibold">
-            {slotData?.data?.startTime} - {slotData?.data?.endTime}
+            {slotData?.startTime} - {slotData?.endTime}
           </p>
         </div>
-        {/* 
-        <ul className="mb-6">
-          {selectedSlots.map((slot, index) => (
-            <div className="p-4 bg-blue-100 rounded-lg">
-              <p className="text-lg font-semibold">
-                {slot?.startTime} - {slot?.endTime}
-              </p>
-            </div>
-          ))}
-        </ul> */}
       </div>
 
-      {/* Right Side: User Information Form */}
+      {/* Right Side */}
       <div className="flex-1 p-6 bg-gray-100 rounded-lg">
         <h2 className="text-2xl font-semibold mb-4">Booking Details</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -174,14 +133,12 @@ const BookingPage = () => {
               type="text"
               className="w-full p-2 border rounded-lg"
               readOnly
-              value={slotData?.data?.startTime || ""}
             />
           </div>
           <div className="text-center">
             <button
               type="submit"
               className="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300"
-              onClick={handlePayNow}
             >
               Pay Now
             </button>
@@ -192,4 +149,4 @@ const BookingPage = () => {
   );
 };
 
-export default BookingPage;
+export default Booking;

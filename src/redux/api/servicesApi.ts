@@ -37,6 +37,12 @@ const authApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    getSingleSlotsById: builder.query({
+      query: (id: string) => ({
+        url: `/slots/availability/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -44,4 +50,5 @@ export const {
   useGetServicesQuery,
   useGetServiceByIdQuery,
   useGetSlotsByServiceIdQuery,
+  useGetSingleSlotsByIdQuery
 } = authApi;

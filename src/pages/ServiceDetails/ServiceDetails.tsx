@@ -3,7 +3,7 @@ import {
   useGetServiceByIdQuery,
   useGetSlotsByServiceIdQuery,
 } from "@/redux/api/servicesApi";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
@@ -19,7 +19,7 @@ const ServiceDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [selectedDate] = useState(new Date());
   const [isBooking, setIsBooking] = useState(false);
-
+  const navigate = useNavigate(); // Initialize navigate
   const dispatch = useAppDispatch();
   const selectedSlots = useAppSelector((state) => state.slot.selectedSlots);
 
@@ -57,6 +57,7 @@ const ServiceDetails = () => {
     }
 
     setIsBooking(true); // Disable the button immediately on click
+    navigate(`/booking/${serviceData.data._id}/${selectedSlots[0]}`); // Redirect to Booking page
 
     const bookingInfo = selectedSlots.map((slotId) => ({
       serviceId: serviceData.data._id,
@@ -69,18 +70,20 @@ const ServiceDetails = () => {
       const responsePromises = bookingInfo.map((info) =>
         createBooking(info).unwrap()
       );
+
+      console.log(responsePromises)
       await Promise.all(responsePromises);
 
-      console.log("Booking successful");
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Booking successful",
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      //   console.log("Booking successful");
+      //   Swal.fire({
+      //     position: "center",
+      //     icon: "success",
+      //     title: "Booking successful",
+      //     showConfirmButton: false,
+      //     timer: 1500,
+      //   });
 
-      dispatch(resetSlots()); // Clear selected slots after booking
+      //   dispatch(resetSlots()); // Clear selected slots after booking
     } catch (error) {
       console.error("Failed to create booking:", error);
       setIsBooking(false); // Re-enable the button if booking fails

@@ -25,8 +25,11 @@ const slotSlice = createSlice({
     resetSlots: (state) => {
       state.selectedSlots = [];
     },
+    clearSlots(state) {
+      state.selectedSlots = [];
+    },
   },
 });
 
-export const { selectSlot, deselectSlot, resetSlots } = slotSlice.actions;
+export const { selectSlot, deselectSlot, resetSlots, clearSlots } = slotSlice.actions;
 export default slotSlice.reducer;

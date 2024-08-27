@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { Link } from "react-router-dom";
+
 const ServiceCard = ({ service }: { service: any }) => {
   return (
     <div>
@@ -22,12 +24,12 @@ const ServiceCard = ({ service }: { service: any }) => {
           <p className="text-sm text-gray-500">
             Duration: {service.duration} minutes
           </p>
-          <a
-            href={`/services/${service._id}`}
+          <Link
+            to={`/services/${service._id}`}
             className="inline-block mt-4 bg-[#30415A] text-white py-2 px-4 rounded-lg hover:bg-[#1e2c42] transition-colors duration-300"
           >
             Book Now
-          </a>
+          </Link>
         </div>
       </div>
     </div>
