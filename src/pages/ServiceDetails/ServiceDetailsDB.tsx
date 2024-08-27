@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import {
   useGetServiceByIdQuery,
@@ -6,22 +8,15 @@ import {
 import { useParams } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { useAppSelector } from "@/redux/hooks";
 import { useCreateBookingMutation } from "@/redux/api/bookingApi";
 import Swal from "sweetalert2";
-import {
-  deselectSlot,
-  resetSlots,
-  selectSlot,
-} from "@/redux/features/slotSlice";
 
 const ServiceDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [selectedDate] = useState(new Date());
+  const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [isBooking, setIsBooking] = useState(false);
-
-  const dispatch = useAppDispatch();
-  const selectedSlots = useAppSelector((state) => state.slot.selectedSlots);
 
   // Fetch service details
   const {
@@ -42,36 +37,24 @@ const ServiceDetails = () => {
 
   const [createBooking] = useCreateBookingMutation();
 
-  const handleSlotClick = (slotId: string) => {
-    if (selectedSlots.includes(slotId)) {
-      dispatch(deselectSlot(slotId));
-    } else {
-      dispatch(selectSlot(slotId));
-    }
-  };
-
   const handleBooking = async () => {
-    if (selectedSlots.length === 0 || !serviceData || !user.userId) {
+    if (!selectedSlot || !serviceData || !user.userId) {
       console.error("Missing booking information");
       return;
     }
 
     setIsBooking(true); // Disable the button immediately on click
 
-    const bookingInfo = selectedSlots.map((slotId) => ({
+    const bookingInfo = {
       serviceId: serviceData.data._id,
-      slotId: slotId,
+      slotId: selectedSlot,
       customer: user.userId,
       token: token, // Pass the token here
-    }));
+    };
 
     try {
-      const responsePromises = bookingInfo.map((info) =>
-        createBooking(info).unwrap()
-      );
-      await Promise.all(responsePromises);
-
-      console.log("Booking successful");
+      const response = await createBooking(bookingInfo).unwrap();
+      console.log("Booking successful:", response);
       Swal.fire({
         position: "center",
         icon: "success",
@@ -80,7 +63,8 @@ const ServiceDetails = () => {
         timer: 1500,
       });
 
-      dispatch(resetSlots()); // Clear selected slots after booking
+      // Keep the slot selected so the button remains disabled
+      setSelectedSlot(null);
     } catch (error) {
       console.error("Failed to create booking:", error);
       setIsBooking(false); // Re-enable the button if booking fails
@@ -143,12 +127,10 @@ const ServiceDetails = () => {
           {slotsData?.data?.map((slot: any) => (
             <button
               key={slot._id}
-              onClick={() => handleSlotClick(slot._id)}
+              onClick={() => setSelectedSlot(slot._id)}
               disabled={slot.isBooked === "booked" || isBooking}
               className={`p-4 rounded-lg border-2 font-semibold transition-transform transform hover:scale-105 ${
-                selectedSlots.includes(slot._id)
-                  ? "bg-blue-500 text-white"
-                  : slot.isBooked === "available"
+                slot.isBooked === "available"
                   ? "bg-green-500 text-white hover:bg-green-600 hover:shadow-lg"
                   : "bg-gray-300 text-gray-500 cursor-not-allowed"
               }`}
@@ -160,7 +142,7 @@ const ServiceDetails = () => {
       </div>
 
       {/* Book Button */}
-      {selectedSlots.length > 0 && (
+      {selectedSlot && (
         <div className="text-center mt-6">
           <button
             onClick={handleBooking}

@@ -4,6 +4,7 @@ const initialState = {
   token: "",
   user: {
     userId: "",
+    name:"",
     email: "",
     role: "",
     exp: "",

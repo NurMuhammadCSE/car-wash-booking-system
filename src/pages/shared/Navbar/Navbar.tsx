@@ -37,7 +37,7 @@ const Navbar = () => {
             <li>
               <Link
                 className="rounded-lg backdrop-blur-[2px] p-1 inline-block text-white hover:bg-white hover:text-black transition duration-300"
-                to="/booking"
+                to="/bookings"
               >
                 Booking
               </Link>
@@ -121,7 +121,7 @@ const Navbar = () => {
           <li>
             <Link
               className="rounded-lg backdrop-blur-[2px] p-1 inline-block text-white hover:bg-white hover:text-black transition duration-300"
-              to="/booking"
+              to="/bookings"
               onClick={handleMenuToggle}
             >
               Booking

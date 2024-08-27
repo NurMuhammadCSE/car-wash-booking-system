@@ -6,6 +6,7 @@ import loginReducer from "./features/loginSlice";
 import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
 import userReducer from "./features/userSlice";
+import slotReducer from './features/slotSlice';
 
 const persistUserConfig = {
   key: "user",
@@ -21,6 +22,7 @@ export const store = configureStore({
     signUp: signUpReducer,
     login: loginReducer,
     user: persistedUserReducer,
+    slot: slotReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(
