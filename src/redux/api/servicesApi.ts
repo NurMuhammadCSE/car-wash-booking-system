@@ -1,6 +1,7 @@
 import { baseApi } from "./baseApi";
 
 const authApi = baseApi.injectEndpoints({
+  // tagTypes: ['Service'],
   endpoints: (builder) => ({
     getServices: builder.query({
       query: ({ searchTerm, sort, filter }) => {
@@ -43,6 +44,40 @@ const authApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+
+    //! CRUD
+    addService: builder.mutation({
+      query: ({ newService, token }) => ({
+        url: "/services",
+        method: "POST",
+        body: newService,
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+        },
+      }),
+      // invalidatesTags: ["Service"],
+    }),
+    updateService: builder.mutation({
+      query: ({ id, token, ...updatedService }) => ({
+        url: `/services/${id}`,
+        method: "PUT",
+        body: updatedService,
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+        },
+      }),
+      // invalidatesTags: (result, error, { id }) => [{ type: "Service", id }],
+    }),
+    deleteService: builder.mutation({
+      query: ({ id, token }) => ({
+        url: `/services/${id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+        },
+      }),
+      // invalidatesTags: (result, error, id) => [{ type: "Service", id }],
+    }),
   }),
 });
 
@@ -50,5 +85,8 @@ export const {
   useGetServicesQuery,
   useGetServiceByIdQuery,
   useGetSlotsByServiceIdQuery,
-  useGetSingleSlotsByIdQuery
+  useGetSingleSlotsByIdQuery,
+  useAddServiceMutation,
+  useDeleteServiceMutation,
+  useUpdateServiceMutation
 } = authApi;

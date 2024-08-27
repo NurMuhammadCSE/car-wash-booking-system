@@ -1,7 +1,6 @@
 import NotFound from "@/components/NotFound/NotFound";
 import Main from "@/layout/Main";
 import Booking from "@/pages/Booking/Booking";
-import UserDashboard from "@/pages/Dashboard/UserDashboard";
 import Home from "@/pages/Home/Home/Home";
 import Login from "@/pages/Login/Login";
 import ServiceDetails from "@/pages/ServiceDetails/ServiceDetails";
@@ -9,6 +8,7 @@ import Services from "@/pages/Services/Services";
 import SignUp from "@/pages/SignUp/SignUp";
 import SuccessPage from "@/pages/Success/Success";
 import { createBrowserRouter } from "react-router-dom";
+import Dashboard from "@/pages/Dashboard/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -42,11 +42,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <UserDashboard></UserDashboard>,
-      },
-      {
-        path: "/dashboard",
-        element: <UserDashboard></UserDashboard>,
+        element: <Dashboard></Dashboard>,
       },
       {
         path: "/success",
