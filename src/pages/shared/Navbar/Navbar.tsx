@@ -37,9 +37,9 @@ const Navbar = () => {
             <li>
               <Link
                 className="rounded-lg backdrop-blur-[2px] p-1 inline-block text-white hover:bg-white hover:text-black transition duration-300"
-                to="/bookings"
+                to="/dashboard"
               >
-                Booking
+                Dashboard
               </Link>
             </li>
             {/* Conditionally render login or avatar */}
@@ -121,10 +121,10 @@ const Navbar = () => {
           <li>
             <Link
               className="rounded-lg backdrop-blur-[2px] p-1 inline-block text-white hover:bg-white hover:text-black transition duration-300"
-              to="/bookings"
+              to="/dashboard"
               onClick={handleMenuToggle}
             >
-              Booking
+              Dashboard
             </Link>
           </li>
           {/* Conditionally render login or avatar */}

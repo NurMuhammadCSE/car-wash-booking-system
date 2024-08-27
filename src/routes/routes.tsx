@@ -7,6 +7,7 @@ import Login from "@/pages/Login/Login";
 import ServiceDetails from "@/pages/ServiceDetails/ServiceDetails";
 import Services from "@/pages/Services/Services";
 import SignUp from "@/pages/SignUp/SignUp";
+import SuccessPage from "@/pages/Success/Success";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -42,6 +43,14 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <UserDashboard></UserDashboard>,
+      },
+      {
+        path: "/dashboard",
+        element: <UserDashboard></UserDashboard>,
+      },
+      {
+        path: "/success",
+        element: <SuccessPage></SuccessPage>,
       },
     ],
   },

@@ -12,11 +12,6 @@ import { useForm } from "react-hook-form";
 import { useCreateBookingMutation } from "@/redux/api/bookingApi";
 import { jwtDecode } from "jwt-decode";
 
-interface FormData {
-  userName: string;
-  email: string;
-  timeSlot: string;
-}
 
 // Define the structure of your decoded token
 interface DecodedToken {
@@ -89,7 +84,7 @@ const BookingPage = () => {
         dispatch(clearSlots());
 
         // Redirect to success page after payment
-        // navigate("/success");
+        navigate("/success");
       } else {
         console.error("Order creation failed:", res.message);
       }
