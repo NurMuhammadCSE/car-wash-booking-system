@@ -23,7 +23,6 @@ interface DecodedToken {
   userId: string;
   name: string;
   email: string;
-  // other properties from your token
 }
 
 const BookingPage = () => {
@@ -38,6 +37,7 @@ const BookingPage = () => {
   const navigate = useNavigate();
 
   const { token } = useAppSelector((state) => state.user);
+  // console.log(user);
 
   const { data: slotData } = useGetSingleSlotsByIdQuery(slotId!);
   const [createBooking] = useCreateBookingMutation();
@@ -48,11 +48,24 @@ const BookingPage = () => {
     decodedToken = jwtDecode<DecodedToken>(token);
   }
 
-  console.log(decodedToken)
+  // const {
+  //   register,
+  //   formState: { errors },
+  // } = useForm<FormData>({
+  //   defaultValues: {
+  //     userName: decodedToken?.name || "Programming Hero", // Use the name from decoded token
+  //     email: decodedToken?.email || "", // Use the email from decoded token
+  //     timeSlot: slotData?.data?.startTime || "",
+  //   },
+  // });
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
+  const onSubmit = async () => {
     const bookingInfo = {
       serviceId: serviceData?.data?._id,
       slotId: slotId,
@@ -64,19 +77,19 @@ const BookingPage = () => {
       const res = await createBooking(bookingInfo).unwrap();
       console.log(res);
       if (res.success) {
-        window.location.href = res.data.payment_url;
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Payment successful",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        window.location.href = res.data.paymentSession.payment_url;
+        // Swal.fire({
+        //   position: "center",
+        //   icon: "success",
+        //   title: "Payment successful",
+        //   showConfirmButton: false,
+        //   timer: 1500,
+        // });
         // Clear selected slots after payment
         dispatch(clearSlots());
 
         // Redirect to success page after payment
-        navigate("/success");
+        // navigate("/success");
       } else {
         console.error("Order creation failed:", res.message);
       }
@@ -92,17 +105,6 @@ const BookingPage = () => {
       });
     }
   };
-
-  const {
-    register,
-    formState: { errors },
-  } = useForm<FormData>({
-    defaultValues: {
-      userName: decodedToken?.name || "Programming Hero", // Use the name from decoded token
-      email: decodedToken?.email || "", // Use the email from decoded token
-      timeSlot: slotData?.data?.startTime || "",
-    },
-  });
 
   return (
     <div className="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -125,19 +127,20 @@ const BookingPage = () => {
       {/* Right Side: User Information Form */}
       <div className="flex-1 p-6 bg-gray-100 rounded-lg">
         <h2 className="text-2xl font-semibold mb-4">Booking Details</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <label htmlFor="userName" className="block text-lg font-medium">
               Name
             </label>
             <input
+              defaultValue={"Programming Hero"}
               id="userName"
-              {...register("userName", { required: "Name is required" })}
+              {...register("userName", { required: true })}
               type="text"
               className="w-full p-2 border rounded-lg"
             />
             {errors.userName && (
-              <p className="text-red-500">{errors.userName.message}</p>
+              <p className="text-red-500">Name is Required</p>
             )}
           </div>
           <div>
@@ -145,9 +148,10 @@ const BookingPage = () => {
               Email
             </label>
             <input
+              defaultValue={decodedToken?.email}
               id="email"
               {...register("email", {
-                required: "Email is required",
+                required: true,
                 pattern: {
                   value: /^[^@]+@[^@]+\.[^@]+$/,
                   message: "Invalid email address",
@@ -156,9 +160,7 @@ const BookingPage = () => {
               type="email"
               className="w-full p-2 border rounded-lg"
             />
-            {errors.email && (
-              <p className="text-red-500">{errors.email.message}</p>
-            )}
+            {errors.email && <p className="text-red-500">Email is Required</p>}
           </div>
           <div>
             <label htmlFor="timeSlot" className="block text-lg font-medium">
