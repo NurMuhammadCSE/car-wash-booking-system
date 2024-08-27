@@ -13,9 +13,8 @@ const slotSlice = createSlice({
   initialState,
   reducers: {
     selectSlot: (state, action: PayloadAction<string>) => {
-      if (!state.selectedSlots.includes(action.payload)) {
-        state.selectedSlots.push(action.payload);
-      }
+      // Clear any previously selected slots and add the new one
+      state.selectedSlots = [action.payload];
     },
     deselectSlot: (state, action: PayloadAction<string>) => {
       state.selectedSlots = state.selectedSlots.filter(

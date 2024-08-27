@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import {
   useGetServiceByIdQuery,
@@ -7,13 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { useCreateBookingMutation } from "@/redux/api/bookingApi";
-import Swal from "sweetalert2";
-import {
-  deselectSlot,
-  resetSlots,
-  selectSlot,
-} from "@/redux/features/slotSlice";
+import { deselectSlot, selectSlot } from "@/redux/features/slotSlice";
 
 const ServiceDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -38,9 +33,7 @@ const ServiceDetails = () => {
   } = useGetSlotsByServiceIdQuery(serviceData?.data?._id);
 
   // Fetch User Data
-  const { token, user } = useAppSelector((state) => state.user);
-
-  const [createBooking] = useCreateBookingMutation();
+  const { user } = useAppSelector((state) => state.user);
 
   const handleSlotClick = (slotId: string) => {
     if (selectedSlots.includes(slotId)) {
@@ -58,36 +51,6 @@ const ServiceDetails = () => {
 
     setIsBooking(true); // Disable the button immediately on click
     navigate(`/booking/${serviceData.data._id}/${selectedSlots[0]}`); // Redirect to Booking page
-
-    const bookingInfo = selectedSlots.map((slotId) => ({
-      serviceId: serviceData.data._id,
-      slotId: slotId,
-      customer: user.userId,
-      token: token, // Pass the token here
-    }));
-
-    try {
-      const responsePromises = bookingInfo.map((info) =>
-        createBooking(info).unwrap()
-      );
-
-      console.log(responsePromises)
-      await Promise.all(responsePromises);
-
-      //   console.log("Booking successful");
-      //   Swal.fire({
-      //     position: "center",
-      //     icon: "success",
-      //     title: "Booking successful",
-      //     showConfirmButton: false,
-      //     timer: 1500,
-      //   });
-
-      //   dispatch(resetSlots()); // Clear selected slots after booking
-    } catch (error) {
-      console.error("Failed to create booking:", error);
-      setIsBooking(false); // Re-enable the button if booking fails
-    }
   };
 
   if (isServiceLoading || isSlotsLoading) {

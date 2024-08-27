@@ -1,11 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseApi } from "./baseApi";
 
 const bookingApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     createBooking: builder.mutation({
-      query: (bookingInfo) => {
+      query: (bookingInfo:any) => {
         const token = bookingInfo.token; // Extract token from bookingInfo
-
         return {
           url: "/bookings",
           method: "POST",

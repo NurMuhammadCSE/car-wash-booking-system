@@ -10,11 +10,20 @@ import Swal from "sweetalert2";
 import { clearSlots } from "@/redux/features/slotSlice";
 import { useForm } from "react-hook-form";
 import { useCreateBookingMutation } from "@/redux/api/bookingApi";
+import { jwtDecode } from "jwt-decode";
 
 interface FormData {
   userName: string;
   email: string;
   timeSlot: string;
+}
+
+// Define the structure of your decoded token
+interface DecodedToken {
+  userId: string;
+  name: string;
+  email: string;
+  // other properties from your token
 }
 
 const BookingPage = () => {
@@ -23,26 +32,38 @@ const BookingPage = () => {
     slotId: string;
   }>();
 
-  const selectedSlots = useAppSelector((state) => state.slot.selectedSlots);
   const { data: serviceData } = useGetServiceByIdQuery(serviceId!);
-  const { user } = useAppSelector((state) => state.user);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const { token } = useAppSelector((state) => state.user);
+
   const { data: slotData } = useGetSingleSlotsByIdQuery(slotId!);
   const [createBooking] = useCreateBookingMutation();
 
+  // Decode the token to get user details
+  let decodedToken: DecodedToken | null = null;
+  if (token) {
+    decodedToken = jwtDecode<DecodedToken>(token);
+  }
+
+  console.log(decodedToken)
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const data = {
-      user,
-      slotData,
+
+    const bookingInfo = {
+      serviceId: serviceData?.data?._id,
+      slotId: slotId,
+      customer: decodedToken?.userId, // Use the userId from decoded token
+      token: token,
     };
+
     try {
-      const res = await createBooking(data).unwrap();
+      const res = await createBooking(bookingInfo).unwrap();
+      console.log(res);
       if (res.success) {
-        console.log(res);
         window.location.href = res.data.payment_url;
         Swal.fire({
           position: "center",
@@ -57,7 +78,6 @@ const BookingPage = () => {
         // Redirect to success page after payment
         navigate("/success");
       } else {
-        
         console.error("Order creation failed:", res.message);
       }
     } catch (error) {
@@ -78,8 +98,8 @@ const BookingPage = () => {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      userName: user?.name || "",
-      email: user?.email || "",
+      userName: decodedToken?.name || "Programming Hero", // Use the name from decoded token
+      email: decodedToken?.email || "", // Use the email from decoded token
       timeSlot: slotData?.data?.startTime || "",
     },
   });
@@ -100,16 +120,6 @@ const BookingPage = () => {
             {slotData?.data?.startTime} - {slotData?.data?.endTime}
           </p>
         </div>
-        {/* 
-        <ul className="mb-6">
-          {selectedSlots.map((slot, index) => (
-            <div className="p-4 bg-blue-100 rounded-lg">
-              <p className="text-lg font-semibold">
-                {slot?.startTime} - {slot?.endTime}
-              </p>
-            </div>
-          ))}
-        </ul> */}
       </div>
 
       {/* Right Side: User Information Form */}
@@ -165,10 +175,6 @@ const BookingPage = () => {
           </div>
           <div className="text-center">
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                navigate("/checkout");
-              }}
               type="submit"
               className="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300"
             >
