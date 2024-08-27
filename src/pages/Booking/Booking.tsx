@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/pages/BookingPage.tsx
 import { useParams, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
@@ -8,6 +9,7 @@ import {
 import Swal from "sweetalert2";
 import { clearSlots } from "@/redux/features/slotSlice";
 import { useForm } from "react-hook-form";
+import { useCreateBookingMutation } from "@/redux/api/bookingApi";
 
 interface FormData {
   userName: string;
@@ -28,65 +30,38 @@ const BookingPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  selectedSlots.map((slot) => {
-    const { data: slotData } = useGetSingleSlotsByIdQuery(slot!);
-  });
-
   const { data: slotData } = useGetSingleSlotsByIdQuery(slotId!);
+  const [createBooking] = useCreateBookingMutation();
 
-  const handlePayNow = async () => {
-    if (!selectedSlots.length) {
-      Swal.fire({
-        icon: "error",
-        title: "No slots selected",
-        text: "Please select at least one slot.",
-      });
-      return;
-    }
-
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const data = {
+      user,
+      slotData,
+    };
     try {
-      // Redirect to AAMARPAY
-      window.location.href = `https://aamarpay.com/?serviceId=${serviceId}&slots=${selectedSlots
-        .map((slot) => `${slot.startTime}-${slot.endTime}`)
-        .join(",")}`;
+      const res = await createBooking(data).unwrap();
+      if (res.success) {
+        console.log(res);
+        window.location.href = res.data.payment_url;
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Payment successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        // Clear selected slots after payment
+        dispatch(clearSlots());
 
-      // Clear selected slots after payment
-      dispatch(clearSlots());
-
-      // Redirect to success page after payment
-      navigate("/success");
+        // Redirect to success page after payment
+        navigate("/success");
+      } else {
+        
+        console.error("Order creation failed:", res.message);
+      }
     } catch (error) {
-      console.error("Payment failed", error);
-      Swal.fire({
-        icon: "error",
-        title: "Payment failed",
-        text: "Please try again later.",
-      });
-    }
-  };
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
-    defaultValues: {
-      userName: user?.name || "",
-      email: user?.email || "",
-      timeSlot: slotData?.data?.startTime || "",
-    },
-  });
-
-  const onSubmit = async (formData: FormData) => {
-    try {
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Payment successful",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    } catch (error) {
+      console.log(error);
       console.error("Payment failed:", error);
       Swal.fire({
         position: "center",
@@ -97,6 +72,17 @@ const BookingPage = () => {
       });
     }
   };
+
+  const {
+    register,
+    formState: { errors },
+  } = useForm<FormData>({
+    defaultValues: {
+      userName: user?.name || "",
+      email: user?.email || "",
+      timeSlot: slotData?.data?.startTime || "",
+    },
+  });
 
   return (
     <div className="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -129,7 +115,7 @@ const BookingPage = () => {
       {/* Right Side: User Information Form */}
       <div className="flex-1 p-6 bg-gray-100 rounded-lg">
         <h2 className="text-2xl font-semibold mb-4">Booking Details</h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="userName" className="block text-lg font-medium">
               Name
@@ -179,9 +165,12 @@ const BookingPage = () => {
           </div>
           <div className="text-center">
             <button
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate("/checkout");
+              }}
               type="submit"
               className="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300"
-              onClick={handlePayNow}
             >
               Pay Now
             </button>

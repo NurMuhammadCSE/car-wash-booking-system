@@ -1,6 +1,7 @@
 import NotFound from "@/components/NotFound/NotFound";
 import Main from "@/layout/Main";
 import Booking from "@/pages/Booking/Booking";
+import CheckoutPage from "@/pages/CheckoutPage/CheckoutPage";
 import Home from "@/pages/Home/Home/Home";
 import Login from "@/pages/Login/Login";
 import ServiceDetails from "@/pages/ServiceDetails/ServiceDetails";
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/booking/:serviceId/:slotId",
         element: <Booking></Booking>,
+      },
+      {
+        path: "/checkout",
+        element: <CheckoutPage></CheckoutPage>,
       },
     ],
   },
