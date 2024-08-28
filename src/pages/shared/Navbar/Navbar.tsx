@@ -1,21 +1,33 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Moon } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { logout } from "@/redux/features/userSlice";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleAvatarClick = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const dispatch = useAppDispatch();
+
   // Get the user's authentication state
-  const { token, user } = useAppSelector((state) => state.user);
-  
+  const { token } = useAppSelector((state) => state.user);
+
   // Dummy user avatar; replace with actual data from user profile if available
   const userAvatar = "https://avatar.iran.liara.run/public";
+
+  const handleLogout = () => {
+    dispatch(logout());
+    setIsDropdownOpen(false);
+  };
 
   return (
     <header className="bg-[#30415A] text-white rounded-sm px-3">
@@ -42,7 +54,6 @@ const Navbar = () => {
                 Dashboard
               </Link>
             </li>
-            {/* Conditionally render login or avatar */}
             {!token ? (
               <li>
                 <Link
@@ -53,12 +64,28 @@ const Navbar = () => {
                 </Link>
               </li>
             ) : (
-              <li>
+              <li className="relative">
                 <img
                   src={userAvatar}
                   alt="User Avatar"
                   className="w-8 h-8 rounded-full cursor-pointer"
+                  onClick={handleAvatarClick}
+                  style={{ zIndex: 10 }} // Add z-index here
                 />
+                {isDropdownOpen && (
+                  <ul className="absolute right-0 mt-1 w-20 bg-white text-black rounded-lg shadow-lg z-20">
+                    {" "}
+                    {/* Add z-index here */}
+                    <li>
+                      <button
+                        onClick={handleLogout}
+                        className="block w-full text-left px-4 py-2 text-sm "
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                )}
               </li>
             )}
             <li>
@@ -72,7 +99,6 @@ const Navbar = () => {
           </ul>
         </div>
 
-        {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center">
           <button
             onClick={handleMenuToggle}
@@ -106,7 +132,6 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
       {isMenuOpen && (
         <ul className="md:hidden flex flex-col items-center space-y-5 mt-4 transition-all duration-300 ease-in-out">
           <li>
@@ -127,7 +152,6 @@ const Navbar = () => {
               Dashboard
             </Link>
           </li>
-          {/* Conditionally render login or avatar */}
           {!token ? (
             <li className="relative">
               <Link
@@ -144,7 +168,20 @@ const Navbar = () => {
                 src={userAvatar}
                 alt="User Avatar"
                 className="w-8 h-8 rounded-full cursor-pointer"
+                onClick={handleAvatarClick}
               />
+              {isDropdownOpen && (
+                <ul className="absolute right-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg">
+                  <li>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-200"
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+              )}
             </li>
           )}
           <li>
