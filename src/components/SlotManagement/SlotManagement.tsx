@@ -97,7 +97,7 @@ const SlotManagement = () => {
     const slot = slots?.data?.find((slot: any) => slot._id === slotId);
     if (slot && slot.isBooked !== SlotStatus.BOOKED) {
       try {
-        await updateSlot({ id: slotId, status: newStatus, token }).unwrap();
+        await updateSlot({ id: slotId, isBooked: newStatus, token }).unwrap();
         refetch();
       } catch (error) {
         console.error("Failed to update slot status:", error);
@@ -225,6 +225,14 @@ const SlotManagement = () => {
                   }
                 >
                   Set Cancelled
+                </Button>
+                <Button
+                  disabled={slot.isBooked === SlotStatus.BOOKED}
+                  onClick={() =>
+                    handleUpdateSlotStatus(slot._id, SlotStatus.AVAILABLE)
+                  }
+                >
+                  Set Available
                 </Button>
               </TableCell>
             </TableRow>

@@ -7,10 +7,10 @@ const slotApi = baseApi.injectEndpoints({
       providesTags: ["Slot"],
     }),
     updateSlot: builder.mutation({
-      query: ({ id, status, token }) => ({
-        url: `/services/${id}`,
+      query: ({ id, isBooked, token }) => ({
+        url: `/slots/${id}`,
         method: "PATCH",
-        body: { status },
+        body: { isBooked },
         headers: {
           Authorization: `Bearer ${token}`,
         },
