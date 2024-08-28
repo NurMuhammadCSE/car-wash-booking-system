@@ -10,34 +10,17 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import {
-  useAddServiceMutation,
   useDeleteServiceMutation,
   useGetServicesQuery,
-  useUpdateServiceMutation,
 } from "@/redux/api/servicesApi";
 import { useAppSelector } from "@/redux/hooks";
-import { useState } from "react";
+import { ServiceModal } from "@/components/ServiceModal/AddServiceModal";
+import { EditServiceModal } from "@/components/ServiceModal/EditServiceModal";
 
 const ServiceManagement = () => {
   const { data: services = [], isLoading } = useGetServicesQuery("");
   const { token } = useAppSelector((state) => state.user);
-
-  const [addService] = useAddServiceMutation();
-  const [updateService] = useUpdateServiceMutation();
   const [deleteService] = useDeleteServiceMutation();
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [serviceToEdit, setServiceToEdit] = useState(null);
-
-  const handleAddService = async (newService) => {
-    await addService({ newService, token });
-    setIsModalOpen(false);
-  };
-
-  const handleUpdateService = async (updatedService) => {
-    await updateService({ id: updatedService._id, ...updatedService, token });
-    setIsModalOpen(false);
-  };
 
   const handleDeleteService = async (serviceId: string) => {
     Swal.fire({
@@ -68,20 +51,10 @@ const ServiceManagement = () => {
     });
   };
 
-  const openModal = (service = null) => {
-    setServiceToEdit(service);
-    setIsModalOpen(true);
-  };
-
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Service Management</h2>
-      <button
-        className="bg-blue-500 text-white py-2 px-4 rounded-lg mb-4"
-        onClick={() => openModal()}
-      >
-        Add Service
-      </button>
+      <ServiceModal></ServiceModal>
 
       {isLoading ? (
         <p>Loading services...</p>
@@ -109,12 +82,10 @@ const ServiceManagement = () => {
                   {service.isDeleted ? "Deleted" : "Active"}
                 </TableCell>
                 <TableCell className="text-right">
-                  <button
-                    className="bg-yellow-500 text-white py-1 px-3 rounded-lg mr-2"
-                    onClick={() => openModal(service)}
-                  >
-                    Edit
+                  <button>
+                    <EditServiceModal service={service}></EditServiceModal>
                   </button>
+
                   <button
                     className="bg-red-500 text-white py-1 px-3 rounded-lg"
                     onClick={() => handleDeleteService(service._id)}

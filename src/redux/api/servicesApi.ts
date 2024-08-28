@@ -23,6 +23,7 @@ const authApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["Service"],
     }),
     getServiceById: builder.query({
       query: (id: string) => ({
@@ -45,24 +46,32 @@ const authApi = baseApi.injectEndpoints({
 
     //! CRUD
     addService: builder.mutation({
-      query: ({ newService, token }) => ({
-        url: "/services",
-        method: "POST",
-        body: newService,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }),
+      query: ({ serviceDetails, token }) => {
+        // console.log(serviceDetails, "Token", token);
+        return {
+          url: "/services",
+          method: "POST",
+          body: serviceDetails,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+      invalidatesTags: ["Service"],
     }),
     updateService: builder.mutation({
-      query: ({ id, token, ...updatedService }) => ({
-        url: `/services/${id}`,
-        method: "PUT",
-        body: updatedService,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }),
+      query: ({ id, token, updatedService }) => {
+        console.log(id, token, updatedService);
+        return {
+          url: `/services/${id}`,
+          method: "PATCH",
+          body: updatedService,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+      invalidatesTags: ["Service"],
     }),
     deleteService: builder.mutation({
       query: ({ serviceId, token }) => ({
@@ -72,7 +81,7 @@ const authApi = baseApi.injectEndpoints({
           Authorization: `Bearer ${token}`,
         },
       }),
-      // invalidatesTags: (result, error, { serviceId }) => [{ type: "Service", id: serviceId }],
+      invalidatesTags: ["Service"],
     }),
   }),
 });

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import ServiceCard from "@/components/ServiceCard/ServiceCard";
 import { useGetServicesQuery } from "@/redux/api/servicesApi";
 import { setSearch, setSort, setFilter } from "@/redux/features/searchSlice";
@@ -53,7 +54,7 @@ const Services = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {data?.data?.map((service) => (
+          {data?.data?.map((service:any) => (
             <ServiceCard key={service._id} service={service} />
           ))}
         </div>
