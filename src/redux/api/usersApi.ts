@@ -7,13 +7,15 @@ const usersApi = baseApi.injectEndpoints({
         url: "/users",
         methods: "GET",
       }),
+      providesTags: ["User"],
     }),
     updateUserRole: builder.mutation({
       query: ({ userId, role }) => ({
-        url: `/users/${userId}/role`,
+        url: `/users/${userId}`,
         method: "PATCH",
         body: { role },
       }),
+      invalidatesTags: ["User"],
     }),
   }),
 });
