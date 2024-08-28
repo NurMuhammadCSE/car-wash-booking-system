@@ -127,7 +127,7 @@ const BookingPage = () => {
               Name
             </label>
             <input
-              defaultValue={"Programming Hero"}
+              defaultValue={decodedToken?.name}
               id="userName"
               {...register("userName", { required: true })}
               type="text"
