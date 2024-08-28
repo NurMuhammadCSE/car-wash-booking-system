@@ -1,19 +1,12 @@
-import { useAppSelector } from "@/redux/hooks";
 import React from "react";
-import AdminDashboard from "../AdminDashboard/AdminDashboard";
-import UserDashboard from "../UserDashboard/UserDashboard";
+import { useAppSelector } from "@/redux/hooks";
+import UserDashboard from "@/pages/UserDashboard/UserDashboard";
+import AdminLayout from "@/layout/AdminLayout";
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
   const { user } = useAppSelector((state) => state.user);
-  return (
-    <div>
-      {user.role === "admin" ? (
-        <AdminDashboard></AdminDashboard>
-      ) : (
-        <UserDashboard></UserDashboard>
-      )}
-    </div>
-  );
+
+  return user.role === "admin" ? <AdminLayout /> : <UserDashboard />;
 };
 
 export default Dashboard;

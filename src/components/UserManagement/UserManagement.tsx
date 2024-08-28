@@ -5,7 +5,7 @@ const UserManagement = () => {
     return (
         <div>
             <UserList></UserList>
-            <BookingList></BookingList>
+            {/* <BookingList></BookingList> */}
         </div>
     );
 };

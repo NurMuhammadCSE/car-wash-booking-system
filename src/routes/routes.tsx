@@ -7,53 +7,43 @@ import ServiceDetails from "@/pages/ServiceDetails/ServiceDetails";
 import Services from "@/pages/Services/Services";
 import SignUp from "@/pages/SignUp/SignUp";
 import SuccessPage from "@/pages/Success/Success";
-import { createBrowserRouter } from "react-router-dom";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import ServiceManagement from "@/pages/AdminDashboard/ServiceManagement/ServiceManagement";
+import AdminLayout from "@/layout/AdminLayout";
+import { createBrowserRouter } from "react-router-dom";
+import SlotManagement from "@/components/SlotManagement/SlotManagement";
+import UserManagement from "@/components/UserManagement/UserManagement";
+import BookingList from "@/components/UserManagement/BookingList";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Main></Main>,
-    errorElement: <NotFound></NotFound>,
+    element: <Main />,
+    errorElement: <NotFound />,
     children: [
+      { index: true, element: <Home /> },
+      { path: "login", element: <Login /> },
+      { path: "signup", element: <SignUp /> },
+      { path: "services", element: <Services /> },
+      { path: "services/:id", element: <ServiceDetails /> },
+      { path: "booking/:serviceId/:slotId", element: <Booking /> },
+      { path: "success", element: <SuccessPage /> },
       {
-        index: true,
-        element: <Home></Home>,
+        path: "dashboard",
+        element: <Dashboard />,
       },
-      {
-        path: "/login",
-        element: <Login></Login>,
-      },
-      {
-        path: "/signup",
-        element: <SignUp></SignUp>,
-      },
-      {
-        path: "/services",
-        element: <Services></Services>,
-      },
-      {
-        path: "/services/:id",
-        element: <ServiceDetails></ServiceDetails>,
-      },
-      {
-        path: "/booking/:serviceId/:slotId",
-        element: <Booking></Booking>,
-      },
-      {
-        path: "/dashboard",
-        element: <Dashboard></Dashboard>,
-      },
-      {
-        path: "/success",
-        element: <SuccessPage></SuccessPage>,
-      },
-      //! DON'T USE
-      {
-        path: "/service",
-        element: <ServiceManagement></ServiceManagement>,
-      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    errorElement: <NotFound />,
+    children: [
+      { path: "services", element: <ServiceManagement /> },
+      { path: "slots", element: <SlotManagement /> },
+      { path: "users", element: <UserManagement /> },
+      { path: "bookings", element: <BookingList /> },
+      // Additional admin routes can be added here
     ],
   },
 ]);
