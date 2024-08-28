@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { FormEvent, useState } from "react";
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -22,6 +24,17 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import { Input } from "../ui/input";
+import { useGetServicesQuery } from "@/redux/api/servicesApi";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "../ui/select";
+import { useAppSelector } from "@/redux/hooks";
+import Swal from "sweetalert2";
 
 export enum SlotStatus {
   AVAILABLE = "available",
@@ -33,24 +46,62 @@ const SlotManagement = () => {
   const { data: slots, refetch } = useGetSlotsQuery(undefined);
   const [updateSlot] = useUpdateSlotMutation();
   const [createSlot] = useCreateSlotMutation();
-  const [newSlot, setNewSlot] = useState({
-    service: "",
-    date: "",
-    startTime: "",
-    endTime: "",
-  });
+  const { data: services } = useGetServicesQuery("");
+  const { token } = useAppSelector((state) => state.user);
 
-  const handleCreateSlot = async (e: React.FormEvent) => {
+  const [service, setService] = useState<string>("");
+  const [date, setDate] = useState<string>("");
+  const [startTime, setStartTime] = useState<string>("");
+  const [endTime, setEndTime] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await createSlot(newSlot).unwrap();
-    refetch();
+
+    if (!service || !date || !startTime || !endTime) {
+      alert("Please fill out all fields before submitting.");
+      return;
+    }
+
+    const slotDetails = {
+      service,
+      date,
+      startTime,
+      endTime,
+    };
+
+    try {
+      await createSlot({ slotDetails, token }).unwrap();
+      setIsModalOpen(false); // Close the modal
+      Swal.fire({
+        title: "Success!",
+        text: "Slot created successfully.",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+      refetch();
+    } catch (error) {
+      Swal.fire({
+        title: "Error!",
+        text: "There was an error creating the slot.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
   };
 
-  const handleUpdateSlotStatus = async (slotId: string, newStatus: SlotStatus) => {
-    const slot = slots?.data?.find((slot) => slot._id === slotId);
-    if (slot?.isBooked !== SlotStatus.BOOKED) {
-      await updateSlot({ id: slotId, status: newStatus }).unwrap();
-      refetch();
+  const handleUpdateSlotStatus = async (
+    slotId: string,
+    newStatus: SlotStatus
+  ) => {
+    const slot = slots?.data?.find((slot: any) => slot._id === slotId);
+    if (slot && slot.isBooked !== SlotStatus.BOOKED) {
+      try {
+        await updateSlot({ id: slotId, status: newStatus, token }).unwrap();
+        refetch();
+      } catch (error) {
+        console.error("Failed to update slot status:", error);
+      }
     } else {
       alert("Cannot update a booked slot.");
     }
@@ -72,38 +123,106 @@ const SlotManagement = () => {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-6">Slot Management</h1>
+
+      {/* Create Slot Modal */}
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogTrigger asChild>
+          <Button onClick={() => setIsModalOpen(true)} className="mb-4">
+            Create New Slot
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Create New Slot</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={onSubmit}>
+            <div className="space-y-4">
+              {/* Service Dropdown */}
+              <Select
+                value={service}
+                onValueChange={(value) => setService(value)}
+                required
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select a service" />
+                </SelectTrigger>
+                <SelectContent>
+                  {services?.data?.map((service: any) => (
+                    <SelectItem key={service._id} value={service._id}>
+                      {service.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <Input
+                type="date"
+                placeholder="Date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+              />
+              <Input
+                type="time"
+                placeholder="Start Time"
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+                required
+              />
+              <Input
+                type="time"
+                placeholder="End Time"
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+                required
+              />
+            </div>
+            <DialogFooter>
+              <Button type="submit" className="mt-4">
+                Create Slot
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Manage Slots */}
       <Table>
         <TableCaption>Manage the slots for your services.</TableCaption>
         <TableHeader>
           <TableRow className="bg-gray-100">
-            <TableHead className="px-4 py-2">Date</TableHead>
-            <TableHead className="px-4 py-2">Start Time</TableHead>
-            <TableHead className="px-4 py-2">End Time</TableHead>
-            <TableHead className="px-4 py-2">Status</TableHead>
-            <TableHead className="px-4 py-2">Actions</TableHead>
+            <TableHead className="px-4 py-2 text-center">Date</TableHead>
+            <TableHead className="px-4 py-2 text-center">Start Time</TableHead>
+            <TableHead className="px-4 py-2 text-center">End Time</TableHead>
+            <TableHead className="px-4 py-2 text-center">Status</TableHead>
+            <TableHead className="px-4 py-2 text-center">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {slots?.data?.map((slot) => (
-            <TableRow key={slot._id} className="border-b hover:bg-gray-50 my">
-              <TableCell className="px-4 py-2">
+          {slots?.data?.map((slot: any) => (
+            <TableRow key={slot._id} className="border-b hover:bg-gray-50">
+              <TableCell className="text-center px-4 py-2">
                 {new Date(slot.date).toLocaleDateString()}
               </TableCell>
-              <TableCell className="px-4 py-2">{slot.startTime}</TableCell>
-              <TableCell className="px-4 py-2">{slot.endTime}</TableCell>
-              <TableCell className={`px-4 py-2 font-medium rounded-lg ${getStatusColor(slot.isBooked)}`}>
+              <TableCell className="text-center px-4 py-2">
+                {slot.startTime}
+              </TableCell>
+              <TableCell className="text-center px-4 py-2">
+                {slot.endTime}
+              </TableCell>
+              <TableCell
+                className={`px-4 py-2 text-center font-medium rounded-lg ${getStatusColor(
+                  slot.isBooked
+                )}`}
+              >
                 {slot.isBooked.charAt(0).toUpperCase() + slot.isBooked.slice(1)}
               </TableCell>
-              <TableCell className="px-4 py-2 space-x-2">
+              <TableCell className="text-center px-4 py-2 space-x-2">
                 <Button
                   disabled={slot.isBooked === SlotStatus.BOOKED}
-                  onClick={() => handleUpdateSlotStatus(slot._id, SlotStatus.AVAILABLE)}
-                >
-                  Set Available
-                </Button>
-                <Button
-                  disabled={slot.isBooked === SlotStatus.BOOKED}
-                  onClick={() => handleUpdateSlotStatus(slot._id, SlotStatus.CANCELLED)}
+                  onClick={() =>
+                    handleUpdateSlotStatus(slot._id, SlotStatus.CANCELLED)
+                  }
                 >
                   Set Cancelled
                 </Button>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Swal from "sweetalert2";
 import {
@@ -63,25 +64,33 @@ const ServiceManagement = () => {
           <TableCaption>A list of your services.</TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[150px]">Name</TableHead>
-              <TableHead>Description</TableHead>
-              <TableHead>Price</TableHead>
-              <TableHead>Duration</TableHead>
-              <TableHead>Status</TableHead>
+              <TableHead className="w-[150px] text-center">Name</TableHead>
+              <TableHead className="text-center">Description</TableHead>
+              <TableHead className="text-center">Price</TableHead>
+              <TableHead className="text-center">Duration</TableHead>
+              <TableHead className="text-center">Status</TableHead>
               <TableHead className="text-center">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {services?.data.map((service) => (
+            {services?.data.map((service: any) => (
               <TableRow key={service._id}>
-                <TableCell className="font-medium">{service.name}</TableCell>
-                <TableCell>{service.description}</TableCell>
-                <TableCell>${service.price.toFixed(2)}</TableCell>
-                <TableCell>{service.duration} mins</TableCell>
-                <TableCell>
+                <TableCell className="text-center font-medium">
+                  {service.name}
+                </TableCell>
+                <TableCell className="text-center">
+                  {service.description}
+                </TableCell>
+                <TableCell className="text-center">
+                  ${service.price.toFixed(2)}
+                </TableCell>
+                <TableCell className="text-center">
+                  {service.duration} mins
+                </TableCell>
+                <TableCell className="text-center">
                   {service.isDeleted ? "Deleted" : "Active"}
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-center">
                   <button>
                     <EditServiceModal service={service}></EditServiceModal>
                   </button>
