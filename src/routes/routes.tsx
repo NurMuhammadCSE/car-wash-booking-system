@@ -9,6 +9,7 @@ import SignUp from "@/pages/SignUp/SignUp";
 import SuccessPage from "@/pages/Success/Success";
 import { createBrowserRouter } from "react-router-dom";
 import Dashboard from "@/pages/Dashboard/Dashboard";
+import ServiceManagement from "@/pages/AdminDashboard/ServiceManagement/ServiceManagement";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,11 @@ const router = createBrowserRouter([
       {
         path: "/success",
         element: <SuccessPage></SuccessPage>,
+      },
+      //! DON'T USE
+      {
+        path: "/service",
+        element: <ServiceManagement></ServiceManagement>,
       },
     ],
   },

@@ -1,7 +1,6 @@
 import { baseApi } from "./baseApi";
 
 const authApi = baseApi.injectEndpoints({
-  // tagTypes: ['Service'],
   endpoints: (builder) => ({
     getServices: builder.query({
       query: ({ searchTerm, sort, filter }) => {
@@ -17,7 +16,6 @@ const authApi = baseApi.injectEndpoints({
           queryString += `filter=${filter}&`;
         }
 
-        // Remove trailing '&' or '?' if no params are added
         queryString = queryString.slice(0, -1);
 
         return {
@@ -52,10 +50,9 @@ const authApi = baseApi.injectEndpoints({
         method: "POST",
         body: newService,
         headers: {
-          Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+          Authorization: `Bearer ${token}`,
         },
       }),
-      // invalidatesTags: ["Service"],
     }),
     updateService: builder.mutation({
       query: ({ id, token, ...updatedService }) => ({
@@ -63,20 +60,19 @@ const authApi = baseApi.injectEndpoints({
         method: "PUT",
         body: updatedService,
         headers: {
-          Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+          Authorization: `Bearer ${token}`,
         },
       }),
-      // invalidatesTags: (result, error, { id }) => [{ type: "Service", id }],
     }),
     deleteService: builder.mutation({
-      query: ({ id, token }) => ({
-        url: `/services/${id}`,
+      query: ({ serviceId, token }) => ({
+        url: `/services/${serviceId}`,
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+          Authorization: `Bearer ${token}`,
         },
       }),
-      // invalidatesTags: (result, error, id) => [{ type: "Service", id }],
+      // invalidatesTags: (result, error, { serviceId }) => [{ type: "Service", id: serviceId }],
     }),
   }),
 });
@@ -88,5 +84,5 @@ export const {
   useGetSingleSlotsByIdQuery,
   useAddServiceMutation,
   useDeleteServiceMutation,
-  useUpdateServiceMutation
+  useUpdateServiceMutation,
 } = authApi;
