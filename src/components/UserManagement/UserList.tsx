@@ -20,6 +20,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { useAppSelector } from "@/redux/hooks";
+import Swal from "sweetalert2";
 
 const roleColors: { [key: string]: string } = {
   admin: "bg-red-500 text-white",
@@ -27,15 +29,27 @@ const roleColors: { [key: string]: string } = {
 };
 
 const UserList: React.FC = () => {
-  const { data: users, isLoading } = useGetAllUsersQuery(undefined);
+  const { token } = useAppSelector((state) => state.user);
+  const { data: users, isLoading } = useGetAllUsersQuery(token);
   const [updateUserRole] = useUpdateUserRoleMutation();
 
   const handleRoleUpdate = async (userId: string, role: string) => {
     try {
-      await updateUserRole({ userId, role }).unwrap();
-      console.log("Role updated successfully");
+      await updateUserRole({ userId, role, token }).unwrap();
+      Swal.fire({
+        title: 'Success!',
+        text: 'Role updated successfully.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
     } catch (error) {
       console.error("Failed to update role", error);
+      Swal.fire({
+        title: 'Error!',
+        text: 'Failed to update role.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
     }
   };
 
@@ -48,11 +62,11 @@ const UserList: React.FC = () => {
       <h1 className="text-2xl font-bold mb-4">User Management</h1>
       <Table>
         <TableHeader>
-          <TableRow  className="bg-gray-100">
+          <TableRow className="bg-gray-100">
             <TableHead className="px-4 py-2 text-center">Name</TableHead>
             <TableHead className="px-4 py-2 text-center">Email</TableHead>
             <TableHead className="px-4 py-2 text-center">Role</TableHead>
-            <TableHead className="px-4 py-2 er">Actions</TableHead>
+            <TableHead className="px-4 py-2 text-center">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
