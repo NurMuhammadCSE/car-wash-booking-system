@@ -14,7 +14,7 @@ import {
   useGetServicesQuery,
 } from "@/redux/api/servicesApi";
 import { useAppSelector } from "@/redux/hooks";
-import { ServiceModal } from "@/components/ServiceModal/AddServiceModal";
+import { AddServiceModal } from "@/components/ServiceModal/AddServiceModal";
 import { EditServiceModal } from "@/components/ServiceModal/EditServiceModal";
 
 const ServiceManagement = () => {
@@ -54,7 +54,7 @@ const ServiceManagement = () => {
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Service Management</h2>
-      <ServiceModal></ServiceModal>
+      <AddServiceModal></AddServiceModal>
 
       {isLoading ? (
         <p>Loading services...</p>
@@ -68,7 +68,7 @@ const ServiceManagement = () => {
               <TableHead>Price</TableHead>
               <TableHead>Duration</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              <TableHead className="text-center">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -87,7 +87,7 @@ const ServiceManagement = () => {
                   </button>
 
                   <button
-                    className="bg-red-500 text-white py-1 px-3 rounded-lg"
+                    className="bg-red-500 text-white py-1 px-3 ml-2 rounded-lg"
                     onClick={() => handleDeleteService(service._id)}
                   >
                     Delete

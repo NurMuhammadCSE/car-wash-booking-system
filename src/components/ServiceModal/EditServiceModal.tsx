@@ -120,7 +120,7 @@ export function EditServiceModal({ service }: EditServiceModalProps) {
       <DialogTrigger asChild>
         <button
           onClick={() => setIsOpen(true)} // Open the modal when button clicked
-          className="bg-green-500 text-white py-2 px-4 rounded-lg mb-4"
+          className="bg-green-500 text-white py-1 px-3 rounded-lg mb-4"
         >
           Edit Service
         </button>

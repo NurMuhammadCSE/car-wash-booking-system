@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -16,7 +16,7 @@ import { useAddServiceMutation } from "@/redux/api/servicesApi";
 import { useAppSelector } from "@/redux/hooks";
 import axios from "axios";
 
-export function ServiceModal() {
+export function AddServiceModal() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState<number | "">("");
@@ -165,11 +165,11 @@ export function ServiceModal() {
               />
             </div>
           </div>
-          <DialogClose>
+          <DialogFooter>
             <Button type="submit" disabled={uploading}>
               {uploading ? "Uploading..." : "Add Service"}
             </Button>
-          </DialogClose>
+          </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>
