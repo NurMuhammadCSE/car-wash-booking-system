@@ -14,6 +14,7 @@ import { createBrowserRouter } from "react-router-dom";
 import SlotManagement from "@/components/SlotManagement/SlotManagement";
 import UserManagement from "@/components/UserManagement/UserManagement";
 import BookingList from "@/components/UserManagement/BookingList";
+import UpdateProfile from "@/components/UpdateProfiles/UpdateProfiles";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       { path: "services", element: <Services /> },
       { path: "services/:id", element: <ServiceDetails /> },
       { path: "booking/:serviceId/:slotId", element: <Booking /> },
+      { path: "update-profile", element: <UpdateProfile /> },
       { path: "success", element: <SuccessPage /> },
       {
         path: "dashboard",
