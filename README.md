@@ -59,8 +59,8 @@ Make sure you have the following software installed:
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/yourusername/car-washing-booking-system.git
-   cd car-washing-booking-system
+   git clone https://github.com/NurMuhammadCSE/car-wash-booking-system.git
+   cd car-wash-booking-system
    npm install
    # or
    yarn install
