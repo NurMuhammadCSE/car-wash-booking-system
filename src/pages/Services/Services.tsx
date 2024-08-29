@@ -6,7 +6,6 @@ import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { Helmet } from "react-helmet-async";
 
 const Services = () => {
-  
   const { search, sort, filter } = useAppSelector((state) => state.search);
   const dispatch = useAppDispatch();
 
@@ -15,20 +14,19 @@ const Services = () => {
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
-  
+
     if (!value) {
       // Reset filter if no value is selected
       dispatch(setFilter({ price: "", duration: "" }));
       return;
     }
-  
+
     // Update the filter based on the value selected
     const filterType = value === "5000" ? "price" : "duration";
     const filterValue = value;
-  
+
     dispatch(setFilter({ [filterType]: filterValue }));
   };
-  
 
   return (
     <section className="py-12 bg-gradient-to-b">
@@ -37,7 +35,7 @@ const Services = () => {
       </Helmet>
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-8 text-[#30415A] drop-shadow-lg">
-          Featured Services
+          Our Services
         </h2>
 
         <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-8">

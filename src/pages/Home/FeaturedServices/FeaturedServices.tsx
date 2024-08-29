@@ -10,7 +10,7 @@ const FeaturedServices = () => {
     <section className="py-12">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl md:text-4xl dark:text-white font-bold mb-8 text-[#30415A]">
-          Featured Services
+          Our Services
         </h2>
 
         {isLoading ? (
