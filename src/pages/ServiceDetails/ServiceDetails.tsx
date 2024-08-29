@@ -10,6 +10,7 @@ import "react-calendar/dist/Calendar.css";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { deselectSlot, selectSlot } from "@/redux/features/slotSlice";
 import Loader from "../shared/Loader/Loader";
+import { Helmet } from "react-helmet-async";
 
 const ServiceDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -72,6 +73,9 @@ const ServiceDetails = () => {
 
   return (
     <div className="container mx-auto p-6 dark:bg-black dark:text-white bg-white rounded-lg shadow-lg">
+      <Helmet>
+        <title>Service Details - Car Washing</title>
+      </Helmet>
       {/* Banner Image */}
       <div className="relative h-64 md:h-96 mb-8 overflow-hidden rounded-lg">
         <img

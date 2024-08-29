@@ -1,6 +1,7 @@
 import Loader from "@/pages/shared/Loader/Loader";
 import { useGetAllReviewsQuery } from "@/redux/api/reviewApi";
 import { Rating } from "@smastrom/react-rating";
+import { Helmet } from "react-helmet-async";
 
 const AllReviews = () => {
   const {
@@ -23,6 +24,9 @@ const AllReviews = () => {
 
   return (
     <section>
+      <Helmet>
+        <title>All Reviews - Car Washing</title>
+      </Helmet>
       {/* Post-Submission Display */}
       <div className="dark:bg-black bg-white p-6 rounded-lg shadow-lg mb-8">
         <h3 className="text-2xl font-semibold mb-4 text-[#30415A]">

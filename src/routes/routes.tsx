@@ -55,20 +55,32 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+
+      {
+        path: "/admin",
+        element: <AdminLayout />,
+        errorElement: <NotFound />,
+        children: [
+          { path: "services", element: <ServiceManagement /> },
+          { path: "slots", element: <SlotManagement /> },
+          { path: "users", element: <UserManagement /> },
+          { path: "bookings", element: <BookingList /> },
+        ],
+      },
     ],
   },
-  {
-    path: "/admin",
-    element: <AdminLayout />,
-    errorElement: <NotFound />,
-    children: [
-      { path: "services", element: <ServiceManagement /> },
-      { path: "slots", element: <SlotManagement /> },
-      { path: "users", element: <UserManagement /> },
-      { path: "bookings", element: <BookingList /> },
-      // Additional admin routes can be added here
-    ],
-  },
+  // {
+  //   path: "/admin",
+  //   element: <AdminLayout />,
+  //   errorElement: <NotFound />,
+  //   children: [
+  //     { path: "services", element: <ServiceManagement /> },
+  //     { path: "slots", element: <SlotManagement /> },
+  //     { path: "users", element: <UserManagement /> },
+  //     { path: "bookings", element: <BookingList /> },
+  //     // Additional admin routes can be added here
+  //   ],
+  // },
 ]);
 
 export default router;

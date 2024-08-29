@@ -5,19 +5,23 @@ const authApi = baseApi.injectEndpoints({
     getServices: builder.query({
       query: ({ searchTerm, sort, filter }) => {
         let queryString = `/services?`;
-
+    
         if (searchTerm) {
           queryString += `searchTerm=${searchTerm}&`;
         }
         if (sort) {
           queryString += `sort=${sort}&`;
         }
-        if (filter) {
-          queryString += `filter=${filter}&`;
+        if (filter.price) {
+          queryString += `price=${filter.price}&`;
         }
-
+        if (filter.duration) {
+          queryString += `duration=${filter.duration}&`;
+        }
+    
+        // Remove the trailing '&' or '?' if no filters are applied
         queryString = queryString.slice(0, -1);
-
+    
         return {
           url: queryString,
           method: "GET",
@@ -25,6 +29,7 @@ const authApi = baseApi.injectEndpoints({
       },
       providesTags: ["Service"],
     }),
+    
     getServiceById: builder.query({
       query: (id: string) => ({
         url: `/services/${id}`,

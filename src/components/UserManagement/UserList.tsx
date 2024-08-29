@@ -24,6 +24,7 @@ import { useAppSelector } from "@/redux/hooks";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import Loader from "@/pages/shared/Loader/Loader";
+import { Helmet } from "react-helmet-async";
 
 const roleColors: { [key: string]: string } = {
   admin: "bg-red-500 text-white",
@@ -66,6 +67,9 @@ const UserList: React.FC = () => {
 
   return (
     <div className="p-4">
+      <Helmet>
+        <title>All Users - Car Washing</title>
+      </Helmet>
       <h1 className="text-2xl font-bold mb-4">User Management</h1>
       <Table>
         <TableHeader>

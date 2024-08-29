@@ -11,6 +11,7 @@ import {
 import { useAppSelector } from "@/redux/hooks";
 import { useGetAllBookingsQuery } from "@/redux/api/bookingApi";
 import Loader from "@/pages/shared/Loader/Loader";
+import { Helmet } from "react-helmet-async";
 
 const statusColors: { [key: string]: string } = {
   confirmed: "bg-green-500 text-white",
@@ -33,6 +34,9 @@ const BookingList: React.FC = () => {
 
   return (
     <div className="p-4">
+      <Helmet>
+        <title> Users Bookings - Car Washing</title>
+      </Helmet>
       <h1 className="text-2xl font-bold mb-4">Users Bookings</h1>
       <Table>
         <TableHeader>

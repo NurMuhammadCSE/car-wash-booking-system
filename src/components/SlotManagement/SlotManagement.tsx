@@ -36,6 +36,7 @@ import {
 import { useAppSelector } from "@/redux/hooks";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 export enum SlotStatus {
   AVAILABLE = "available",
@@ -124,6 +125,9 @@ const SlotManagement = () => {
 
   return (
     <div className="p-4">
+      <Helmet>
+        <title>Slot Management - Car Washing</title>
+      </Helmet>
       <h1 className="text-2xl font-bold mb-6">Slot Management</h1>
 
       {/* Create Slot Modal */}
@@ -202,10 +206,7 @@ const SlotManagement = () => {
         </TableHeader>
         <TableBody>
           {slots?.data?.map((slot: any) => (
-            <TableRow
-              key={slot._id}
-              className="border-b dark:text-white"
-            >
+            <TableRow key={slot._id} className="border-b dark:text-white">
               <TableCell className="text-center px-4 py-2">
                 {new Date(slot.date).toLocaleDateString()}
               </TableCell>

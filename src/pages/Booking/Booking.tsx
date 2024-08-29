@@ -11,6 +11,7 @@ import { clearSlots } from "@/redux/features/slotSlice";
 import { useForm } from "react-hook-form";
 import { useCreateBookingMutation } from "@/redux/api/bookingApi";
 import { jwtDecode } from "jwt-decode";
+import { Helmet } from "react-helmet-async";
 
 // Define the structure of your decoded token
 interface DecodedToken {
@@ -102,6 +103,9 @@ const BookingPage = () => {
 
   return (
     <div className="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <Helmet>
+        <title> Booking Information - Car Washing</title>
+      </Helmet>
       {/* Left Side: Selected Service and Slots */}
       <div className="p-6 bg-white rounded-lg shadow-lg">
         <h2 className="text-3xl font-bold mb-4">{serviceData?.data?.name}</h2>

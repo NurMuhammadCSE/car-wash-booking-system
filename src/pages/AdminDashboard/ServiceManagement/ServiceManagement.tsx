@@ -17,6 +17,7 @@ import {
 import { useAppSelector } from "@/redux/hooks";
 import { AddServiceModal } from "@/components/ServiceModal/AddServiceModal";
 import { EditServiceModal } from "@/components/ServiceModal/EditServiceModal";
+import { Helmet } from "react-helmet-async";
 
 const ServiceManagement = () => {
   const { data: services = [], isLoading } = useGetServicesQuery("");
@@ -54,6 +55,9 @@ const ServiceManagement = () => {
 
   return (
     <div className="p-4">
+      <Helmet>
+        <title> Service Management - Car Washing</title>
+      </Helmet>
       <h2 className="text-2xl font-bold mb-4">Service Management</h2>
       <AddServiceModal></AddServiceModal>
 
