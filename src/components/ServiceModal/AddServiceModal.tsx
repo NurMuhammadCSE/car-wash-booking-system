@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Dialog,
   DialogContent,
@@ -15,6 +15,7 @@ import { Input } from "../ui/input";
 import { useAddServiceMutation } from "@/redux/api/servicesApi";
 import { useAppSelector } from "@/redux/hooks";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export function AddServiceModal() {
   const [name, setName] = useState("");
@@ -23,6 +24,7 @@ export function AddServiceModal() {
   const [duration, setDuration] = useState<number | "">("");
   const [image, setImage] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [addService] = useAddServiceMutation();
   const { token } = useAppSelector((state) => state.user);
@@ -88,12 +90,20 @@ export function AddServiceModal() {
     };
 
     await addService({ serviceDetails, token }).unwrap();
+
+    // Close the modal after adding the service
+    setIsOpen(false);
+
+    toast.success("Service Added Successfully")
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <button className="bg-blue-500 text-white py-2 px-4 rounded-lg mb-4">
+        <button
+          onClick={() => setIsOpen(true)}
+          className="bg-[#30415A] text-white py-2 px-4 rounded-lg mb-4"
+        >
           Add Service
         </button>
       </DialogTrigger>

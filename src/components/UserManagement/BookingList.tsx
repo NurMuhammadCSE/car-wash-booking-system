@@ -15,7 +15,7 @@ const statusColors: { [key: string]: string } = {
   confirmed: "bg-green-500 text-white",
   pending: "bg-yellow-500 text-white",
   canceled: "bg-red-500 text-white",
-  booked: "bg-blue-500 text-white", // Assuming 'booked' status
+  booked: "bg-[#30415A] text-white", // Assuming 'booked' status
 };
 
 const BookingList: React.FC = () => {

@@ -15,8 +15,8 @@ const Login: React.FC = () => {
 
   const [Login] = useLoginMutation();
 
-  const { token } = useAppSelector((state: RootState) => state.user);
-  console.log("token", token);
+  // const { token } = useAppSelector((state: RootState) => state.user);
+  // console.log("token", token);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,10 +26,10 @@ const Login: React.FC = () => {
 
     const user = jwtDecode(token);
 
-    console.log("token", token, "user:", user);
+    // console.log("token", token, "user:", user);
     dispatch(setToken(token));
     dispatch(setUser(user));
-    navigate('/')
+    navigate("/");
   };
 
   return (

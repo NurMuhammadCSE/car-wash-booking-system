@@ -5,6 +5,7 @@ import Reviews from "./Reviews";
 import { useCreateReviewMutation } from "@/redux/api/reviewApi";
 import { useAppSelector } from "@/redux/hooks";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const ReviewForm = () => {
   const [rating, setRating] = useState(0);
@@ -40,6 +41,8 @@ const ReviewForm = () => {
         rating,
         feedback,
       }).unwrap();
+      toast.success("Successfully Review!");
+
       console.log("Review submitted successfully");
       setRating(0); // Clear rating
       setFeedback(""); // Clear feedback

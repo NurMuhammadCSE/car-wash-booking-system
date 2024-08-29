@@ -22,10 +22,11 @@ import {
 } from "../ui/select";
 import { useAppSelector } from "@/redux/hooks";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const roleColors: { [key: string]: string } = {
   admin: "bg-red-500 text-white",
-  user: "bg-blue-500 text-white",
+  user: "bg-[#30415A] text-white",
 };
 
 const UserList: React.FC = () => {
@@ -36,20 +37,21 @@ const UserList: React.FC = () => {
   const handleRoleUpdate = async (userId: string, role: string) => {
     try {
       await updateUserRole({ userId, role, token }).unwrap();
-      Swal.fire({
-        title: 'Success!',
-        text: 'Role updated successfully.',
-        icon: 'success',
-        confirmButtonText: 'OK'
-      });
+      toast.success("Role Updated Successfully")
+      // Swal.fire({
+      //   title: "Success!",
+      //   text: "Role updated successfully.",
+      //   icon: "success",
+      //   confirmButtonText: "OK",
+      // });
     } catch (error) {
       console.error("Failed to update role", error);
-      Swal.fire({
-        title: 'Error!',
-        text: 'Failed to update role.',
-        icon: 'error',
-        confirmButtonText: 'OK'
-      });
+      // Swal.fire({
+      //   title: "Error!",
+      //   text: "Failed to update role.",
+      //   icon: "error",
+      //   confirmButtonText: "OK",
+      // });
     }
   };
 

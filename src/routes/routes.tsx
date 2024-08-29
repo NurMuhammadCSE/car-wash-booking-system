@@ -16,6 +16,7 @@ import UserManagement from "@/components/UserManagement/UserManagement";
 import BookingList from "@/components/UserManagement/BookingList";
 import UpdateProfile from "@/components/UpdateProfiles/UpdateProfiles";
 import AllReviews from "@/pages/Home/Reviews/AllReviews";
+import PrivateRoute from "./PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -27,14 +28,32 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "signup", element: <SignUp /> },
       { path: "services", element: <Services /> },
-      { path: "services/:id", element: <ServiceDetails /> },
-      { path: "booking/:serviceId/:slotId", element: <Booking /> },
+      {
+        path: "services/:id",
+        element: (
+          <PrivateRoute>
+            <ServiceDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "booking/:serviceId/:slotId",
+        element: (
+          <PrivateRoute>
+            <Booking />
+          </PrivateRoute>
+        ),
+      },
       { path: "update-profile", element: <UpdateProfile /> },
       { path: "success", element: <SuccessPage /> },
       { path: "reviews", element: <AllReviews /> },
       {
         path: "dashboard",
-        element: <Dashboard />,
+        element: (
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        ),
       },
     ],
   },

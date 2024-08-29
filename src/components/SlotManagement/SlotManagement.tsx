@@ -35,6 +35,7 @@ import {
 } from "../ui/select";
 import { useAppSelector } from "@/redux/hooks";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 export enum SlotStatus {
   AVAILABLE = "available",
@@ -98,6 +99,7 @@ const SlotManagement = () => {
     if (slot && slot.isBooked !== SlotStatus.BOOKED) {
       try {
         await updateSlot({ id: slotId, isBooked: newStatus, token }).unwrap();
+        toast.success("Slot Status Updated Successfully")
         refetch();
       } catch (error) {
         console.error("Failed to update slot status:", error);

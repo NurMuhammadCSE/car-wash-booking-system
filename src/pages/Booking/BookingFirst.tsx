@@ -138,7 +138,7 @@ const Booking = () => {
           <div className="text-center">
             <button
               type="submit"
-              className="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300"
+              className="bg-[#30415A] text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300"
             >
               Pay Now
             </button>

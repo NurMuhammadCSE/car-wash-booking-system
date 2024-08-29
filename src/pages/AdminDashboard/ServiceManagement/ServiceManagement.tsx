@@ -58,7 +58,7 @@ const ServiceManagement = () => {
       <AddServiceModal></AddServiceModal>
 
       {isLoading ? (
-        <p>Loading services...</p>
+        <img></img>
       ) : (
         <Table>
           <TableCaption>A list of your services.</TableCaption>

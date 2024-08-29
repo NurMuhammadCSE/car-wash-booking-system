@@ -117,7 +117,7 @@ const ServiceDetails = () => {
             className="w-full text-center border-0 shadow-none"
             tileClassName={({ date }) =>
               selectedDate.toDateString() === date.toDateString()
-                ? "bg-blue-500 text-white"
+                ? "bg-[#30415A] text-white"
                 : ""
             }
           />
@@ -146,7 +146,7 @@ const ServiceDetails = () => {
         <div className="text-center mt-6">
           <button
             onClick={handleBooking}
-            className={`bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300 ${
+            className={`bg-[#30415A] text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300 ${
               isBooking ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={isBooking}

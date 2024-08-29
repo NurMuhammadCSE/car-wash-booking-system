@@ -15,6 +15,7 @@ import { Input } from "../ui/input";
 import { useUpdateServiceMutation } from "@/redux/api/servicesApi";
 import { useAppSelector } from "@/redux/hooks";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 interface EditServiceModalProps {
   service: {
@@ -110,7 +111,7 @@ export function EditServiceModal({ service }: EditServiceModalProps) {
     console.log(updatedService);
 
     await updateService({ id: service._id, token, updatedService }).unwrap();
-
+    toast.success("Service is Edited Successfully")
     // Close the modal after submission
     setIsOpen(false);
   };
