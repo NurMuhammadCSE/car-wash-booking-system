@@ -42,7 +42,7 @@ const Navbar = () => {
       {/* fixed z-10 bg-opacity-30  */}
       <nav className="container text-white bg-[#30415A]  mx-auto flex items-center justify-between space-x-10 py-4">
         <Link to="/" className="text-white font-bold text-lg">
-          Car Washing
+          Car Wash
         </Link>
 
         <div className="hidden md:flex items-center space-x-5">
