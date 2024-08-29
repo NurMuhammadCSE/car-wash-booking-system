@@ -21,7 +21,6 @@ import {
   SelectValue,
 } from "../ui/select";
 import { useAppSelector } from "@/redux/hooks";
-import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import Loader from "@/pages/shared/Loader/Loader";
 import { Helmet } from "react-helmet-async";

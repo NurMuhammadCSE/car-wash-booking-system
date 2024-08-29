@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Loader from "@/pages/shared/Loader/Loader";
 import { useGetAllReviewsQuery } from "@/redux/api/reviewApi";
 import { Rating } from "@smastrom/react-rating";
@@ -19,7 +20,7 @@ const AllReviews = () => {
   if (isError) return <p>Error fetching reviews.</p>;
 
   const averageRating =
-    reviews?.data.reduce((acc, review) => acc + review.rating, 0) /
+    reviews?.data.reduce((acc:any, review:any) => acc + review.rating, 0) /
     reviews?.data.length;
 
   return (
@@ -34,7 +35,7 @@ const AllReviews = () => {
         </h3>
 
         <div className="space-y-4">
-          {reviews?.data.map((review, index) => (
+          {reviews?.data.map((review:any, index:any) => (
             <div key={index} className="bg-gray-100 p-4 rounded-lg shadow-md">
               <div className="flex items-center mb-2">
                 <Rating

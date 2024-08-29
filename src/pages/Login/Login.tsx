@@ -2,8 +2,6 @@ import { useLoginMutation } from "@/redux/api/authApi";
 import { setLoginEmail, setLoginPassword } from "@/redux/features/loginSlice";
 import { setToken, setUser } from "@/redux/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { RootState } from "@/redux/store";
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import toast from "react-hot-toast";

@@ -1,4 +1,3 @@
-import React from "react";
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
 
 const containerStyle = {
@@ -11,13 +10,6 @@ const center = {
   lng: 90.4152,
 };
 
-const defaultProps = {
-  center: {
-    lat: 23.8041,
-    lng: 90.4152,
-  },
-  zoom: 14,
-};
 
 const Location = () => {
   return (

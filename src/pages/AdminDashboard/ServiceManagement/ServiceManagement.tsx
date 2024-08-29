@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/table";
 import {
   useDeleteServiceMutation,
-  useGetServicesQuery,
+  useGetAllServicesQuery,
 } from "@/redux/api/servicesApi";
 import { useAppSelector } from "@/redux/hooks";
 import { AddServiceModal } from "@/components/ServiceModal/AddServiceModal";
@@ -20,7 +20,7 @@ import { EditServiceModal } from "@/components/ServiceModal/EditServiceModal";
 import { Helmet } from "react-helmet-async";
 
 const ServiceManagement = () => {
-  const { data: services = [], isLoading } = useGetServicesQuery("");
+  const { data: services = [], isLoading } = useGetAllServicesQuery(undefined);
   const { token } = useAppSelector((state) => state.user);
   const [deleteService] = useDeleteServiceMutation();
 

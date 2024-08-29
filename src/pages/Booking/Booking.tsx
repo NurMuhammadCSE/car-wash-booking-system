@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// src/pages/BookingPage.tsx
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import {
   useGetServiceByIdQuery,
@@ -29,7 +28,6 @@ const BookingPage = () => {
   const { data: serviceData } = useGetServiceByIdQuery(serviceId!);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const { token } = useAppSelector((state) => state.user);
   // console.log(user);

@@ -1,4 +1,3 @@
-import Reviews from "@/pages/Home/Reviews/Reviews";
 
 const reviews = [
   { rating: 5, feedback: "Great service, highly recommend!" },

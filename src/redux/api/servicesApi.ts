@@ -29,6 +29,13 @@ const authApi = baseApi.injectEndpoints({
       },
       providesTags: ["Service"],
     }),
+
+    getAllServices: builder.query({
+      query:() =>({
+        url:'/services',
+        method:"GET"
+      })
+    }),
     
     getServiceById: builder.query({
       query: (id: string) => ({
@@ -99,4 +106,5 @@ export const {
   useAddServiceMutation,
   useDeleteServiceMutation,
   useUpdateServiceMutation,
+  useGetAllServicesQuery
 } = authApi;

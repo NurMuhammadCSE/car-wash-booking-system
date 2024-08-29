@@ -6,6 +6,7 @@ import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { Helmet } from "react-helmet-async";
 
 const Services = () => {
+  
   const { search, sort, filter } = useAppSelector((state) => state.search);
   const dispatch = useAppDispatch();
 
@@ -25,7 +26,7 @@ const Services = () => {
     const filterType = value === "5000" ? "price" : "duration";
     const filterValue = value;
   
-    dispatch(setFilter({ ...filter, [filterType]: filterValue }));
+    dispatch(setFilter({ [filterType]: filterValue }));
   };
   
 
