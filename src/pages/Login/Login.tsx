@@ -68,7 +68,7 @@ const Login: React.FC = () => {
               value={password}
               onChange={(e) => dispatch(setLoginPassword(e.target.value))}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#30415A] focus:border-[#30415A] sm:text-sm"
+              className="mt-1 block w-full dark:text-black px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#30415A] focus:border-[#30415A] sm:text-sm"
             />
           </div>
           <div className="flex items-center justify-between">

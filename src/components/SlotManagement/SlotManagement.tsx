@@ -99,7 +99,7 @@ const SlotManagement = () => {
     if (slot && slot.isBooked !== SlotStatus.BOOKED) {
       try {
         await updateSlot({ id: slotId, isBooked: newStatus, token }).unwrap();
-        toast.success("Slot Status Updated Successfully")
+        toast.success("Slot Status Updated Successfully");
         refetch();
       } catch (error) {
         console.error("Failed to update slot status:", error);
@@ -202,7 +202,10 @@ const SlotManagement = () => {
         </TableHeader>
         <TableBody>
           {slots?.data?.map((slot: any) => (
-            <TableRow key={slot._id} className="border-b hover:bg-gray-50">
+            <TableRow
+              key={slot._id}
+              className="border-b dark:text-white"
+            >
               <TableCell className="text-center px-4 py-2">
                 {new Date(slot.date).toLocaleDateString()}
               </TableCell>

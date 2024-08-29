@@ -19,8 +19,8 @@ const Reviews = () => {
   return (
     <section>
       {/* Post-Submission Display */}
-      <div className="bg-white p-6 rounded-lg shadow-lg mb-8">
-        <h3 className="text-2xl font-semibold mb-4 text-[#30415A]">
+      <div className="p-6 rounded-lg shadow-lg mb-8">
+        <h3 className="text-2xl font-semibold mb-4 dark:text-white text-[#30415A]">
           Overall Rating: {averageRating.toFixed(1)} / 5
         </h3>
 

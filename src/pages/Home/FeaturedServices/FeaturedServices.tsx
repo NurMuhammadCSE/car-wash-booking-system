@@ -6,9 +6,9 @@ const FeaturedServices = () => {
   const { data, isError, isLoading } = useGetServicesQuery("");
 
   return (
-    <section className="py-12 bg-gray-100">
+    <section className="py-12">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-[#30415A]">
+        <h2 className="text-3xl md:text-4xl dark:text-white font-bold mb-8 text-[#30415A]">
           Featured Services
         </h2>
 

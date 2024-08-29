@@ -12,7 +12,7 @@ const Services = () => {
   const { data } = useGetServicesQuery({ searchTerm: search, sort, filter });
 
   return (
-    <section className="py-12 bg-gradient-to-b from-gray-100 to-white">
+    <section className="py-12 bg-gradient-to-b">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-8 text-[#30415A] drop-shadow-lg">
           Featured Services
@@ -25,14 +25,14 @@ const Services = () => {
             placeholder="Search services..."
             value={search}
             onChange={(e) => dispatch(setSearch(e.target.value))}
-            className="p-3 rounded-lg border border-gray-300 w-full md:w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+            className="p-3 rounded-lg border dark:text-black border-gray-300 w-full md:w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
           />
 
           {/* Sort Dropdown */}
           <select
             value={sort}
             onChange={(e) => dispatch(setSort(e.target.value))}
-            className="p-3 rounded-lg border border-gray-300 w-full md:w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+            className="p-3 rounded-lg border dark:text-black border-gray-300 w-full md:w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
           >
             <option value="">Sort by</option>
             <option value="price">Price: Low to High</option>
@@ -45,7 +45,7 @@ const Services = () => {
           <select
             value={filter}
             onChange={(e) => dispatch(setFilter(e.target.value))}
-            className="p-3 rounded-lg border border-gray-300 w-full md:w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+            className="p-3 rounded-lg border dark:text-black border-gray-300 w-full md:w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
           >
             <option value="">Filter by</option>
             <option value="price">Price</option>

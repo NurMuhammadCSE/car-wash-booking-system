@@ -1,4 +1,4 @@
-import { Moon } from "lucide-react";
+import { Moon, Sun } from "lucide-react"; // Import the Sun icon as well
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
@@ -7,6 +7,7 @@ import { logout } from "@/redux/features/userSlice";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false); // State for dark mode
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -14,6 +15,11 @@ const Navbar = () => {
 
   const handleAvatarClick = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleDarkModeToggle = () => {
+    setIsDarkMode(!isDarkMode);
+    document.documentElement.classList.toggle("dark", !isDarkMode); // Toggle dark mode class on <html>
   };
 
   const dispatch = useAppDispatch();
@@ -30,7 +36,11 @@ const Navbar = () => {
   };
 
   return (
-    <header className="bg-[#30415A] text-white rounded-sm px-3">
+    <header
+      className={`bg-[#30415A] text-white rounded-sm px-3 ${
+        isDarkMode ? "dark" : ""
+      }`}
+    >
       <nav className="container mx-auto flex items-center justify-between space-x-10 py-4">
         <Link to="/" className="text-white font-bold text-lg">
           Car Washing
@@ -91,9 +101,11 @@ const Navbar = () => {
             <li>
               <button
                 aria-label="Toggle Dark Mode"
+                onClick={handleDarkModeToggle} // Add dark mode toggle handler
                 className="rounded-lg backdrop-blur-[2px] p-1 inline-block text-white hover:bg-white hover:text-black transition duration-300"
               >
-                <Moon size={24} />
+                {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}{" "}
+                {/* Toggle icon based on dark mode state */}
               </button>
             </li>
           </ul>
@@ -187,9 +199,11 @@ const Navbar = () => {
           <li>
             <button
               aria-label="Toggle Dark Mode"
+              onClick={handleDarkModeToggle} // Add dark mode toggle handler
               className="rounded-lg backdrop-blur-[2px] p-1 inline-block text-white hover:bg-white hover:text-black transition duration-300"
             >
-              <Moon size={24} />
+              {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}{" "}
+              {/* Toggle icon based on dark mode state */}
             </button>
           </li>
         </ul>

@@ -66,7 +66,7 @@ const ServiceDetails = () => {
   }
 
   return (
-    <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <div className="container mx-auto p-6 dark:bg-black dark:text-white bg-white rounded-lg shadow-lg">
       {/* Banner Image */}
       <div className="relative h-64 md:h-96 mb-8 overflow-hidden rounded-lg">
         <img
@@ -82,7 +82,7 @@ const ServiceDetails = () => {
       </div>
 
       {/* Service Description */}
-      <p className="text-lg mb-6 text-gray-700">
+      <p className="text-lg mb-6 dark:text-white  text-gray-700">
         {serviceData?.data?.description}
       </p>
 
@@ -93,14 +93,14 @@ const ServiceDetails = () => {
 
       {/* Calendar and Slots Section */}
       <div className="flex flex-col md:flex-row gap-8">
-        <div className="flex-1 rounded-lg p-4 bg-white">
+        <div className="flex-1 rounded-lg p-4 dark:bg-black dark:text-black bg-white">
           <Calendar
             value={selectedDate}
             className="w-full text-center border-0 shadow-none"
             tileClassName={({ date }) =>
               selectedDate.toDateString() === date.toDateString()
-                ? "bg-[#30415A] text-white"
-                : ""
+                ? "bg-[#30415A] dark:text-black text-white"
+                : "dark:text-black"
             }
           />
         </div>

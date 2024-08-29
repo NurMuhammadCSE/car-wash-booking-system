@@ -74,7 +74,7 @@ const UserDashboard = () => {
               onClick={() => navigate("/update-profile")}
               className="mt-4"
             >
-              Update Profile
+              Profile Info
             </Button>
           </CardContent>
         </Card>
@@ -146,7 +146,7 @@ const UserDashboard = () => {
             {upcomingBookings.map((booking) => (
               <Card
                 key={booking._id}
-                className="p-4 bg-gray-100 rounded-lg shadow-md"
+                className="p-4 -100 rounded-lg shadow-md"
               >
                 <CardTitle className="text-xl font-semibold">
                   {booking.service.name}
