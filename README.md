@@ -1,4 +1,4 @@
-# 🚗 Car Washing Booking System
+# 🚗 Car Wash Booking System
 
 Check out our live demo:
 - **[Client](https://car-washing-booking.web.app/)** - Experience the user interface and book services directly.
