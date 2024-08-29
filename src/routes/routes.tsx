@@ -15,6 +15,7 @@ import SlotManagement from "@/components/SlotManagement/SlotManagement";
 import UserManagement from "@/components/UserManagement/UserManagement";
 import BookingList from "@/components/UserManagement/BookingList";
 import UpdateProfile from "@/components/UpdateProfiles/UpdateProfiles";
+import AllReviews from "@/pages/Home/Reviews/AllReviews";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
       { path: "booking/:serviceId/:slotId", element: <Booking /> },
       { path: "update-profile", element: <UpdateProfile /> },
       { path: "success", element: <SuccessPage /> },
+      { path: "reviews", element: <AllReviews /> },
       {
         path: "dashboard",
         element: <Dashboard />,

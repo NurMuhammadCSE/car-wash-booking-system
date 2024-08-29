@@ -28,12 +28,7 @@ const Banner = () => {
           >
             Explore Services
           </Link>
-          <Link
-            to="/book"
-            className="bg-yellow-400 text-black font-semibold py-3 px-4 rounded-lg hover:bg-[#30415A] hover:text-white transition duration-300 shadow-lg text-xl md:text-2xl sm:text-xl"
-          >
-            Book Now
-          </Link>
+        
         </div>
       </div>
     </section>

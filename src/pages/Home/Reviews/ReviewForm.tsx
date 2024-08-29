@@ -1,15 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import Reviews from "./Reviews";
+import { useCreateReviewMutation } from "@/redux/api/reviewApi";
+import { useAppSelector } from "@/redux/hooks";
+import { useNavigate } from "react-router-dom";
 
 const ReviewForm = () => {
   const [rating, setRating] = useState(0);
   const [feedback, setFeedback] = useState("");
+  const [createReview, { isLoading, isSuccess, isError }] =
+    useCreateReviewMutation();
 
-  const handleSubmit = () => {
-    // Handle form submission, save feedback and rating
-    console.log("Rating:", rating, "Feedback:", feedback);
+  const { user } = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   // Redirect to login if user is not logged in
+  //   if (!user || !user.userId) {
+  //     navigate("/login");
+  //   }
+  // }, [user, navigate]);
+
+  const handleSubmit = async () => {
+    if (!feedback.trim()) {
+      // Alert or show error message for required feedback
+      alert("Feedback is required!");
+      return;
+    }
+
+    if (!user || !user.userId) {
+      // Return null or a loading indicator while redirecting
+      navigate("/login");
+    }
+
+    try {
+      await createReview({
+        userId: user.userId, // Replace with actual user ID
+        rating,
+        feedback,
+      }).unwrap();
+      console.log("Review submitted successfully");
+      setRating(0); // Clear rating
+      setFeedback(""); // Clear feedback
+    } catch (error) {
+      console.error("Failed to submit review", error);
+    }
   };
 
   return (
@@ -33,15 +69,25 @@ const ReviewForm = () => {
             rows={5}
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
+            required
           />
           <button
             onClick={handleSubmit}
             className="mt-4 bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300"
+            disabled={isLoading}
           >
-            Submit Review
+            {isLoading ? "Submitting..." : "Submit Review"}
           </button>
+          {isSuccess && (
+            <p className="mt-4 text-green-600">
+              Review submitted successfully!
+            </p>
+          )}
+          {isError && (
+            <p className="mt-4 text-red-600">Failed to submit review.</p>
+          )}
         </div>
-        <Reviews></Reviews>
+        <Reviews />
       </div>
     </section>
   );

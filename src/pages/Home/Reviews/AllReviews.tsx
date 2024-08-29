@@ -1,8 +1,7 @@
 import { useGetAllReviewsQuery } from "@/redux/api/reviewApi";
 import { Rating } from "@smastrom/react-rating";
-import { Link } from "react-router-dom";
 
-const Reviews = () => {
+const AllReviews = () => {
   const {
     data: reviews,
     isLoading,
@@ -25,7 +24,7 @@ const Reviews = () => {
         </h3>
 
         <div className="space-y-4">
-          {reviews?.data.slice(0, 2).map((review, index) => (
+          {reviews?.data.map((review, index) => (
             <div key={index} className="bg-gray-100 p-4 rounded-lg shadow-md">
               <div className="flex items-center mb-2">
                 <Rating
@@ -39,16 +38,9 @@ const Reviews = () => {
             </div>
           ))}
         </div>
-
-        <Link
-          to="/reviews"
-          className="inline-block mt-4 text-[#30415A] font-semibold hover:underline"
-        >
-          See All Reviews
-        </Link>
       </div>
     </section>
   );
 };
 
-export default Reviews;
+export default AllReviews;

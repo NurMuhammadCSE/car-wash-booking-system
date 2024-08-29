@@ -9,7 +9,9 @@ const Main = () => {
   return (
     <div className="min-h-screen w-full mx-auto">
       {noHeaderFooter || <Navbar></Navbar>}
-      <Outlet></Outlet>
+      <div className=" min-h-[calc(100vh-68px)]">
+        <Outlet />
+      </div>
       {noHeaderFooter || <Footer></Footer>}
     </div>
   );
