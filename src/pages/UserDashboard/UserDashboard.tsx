@@ -93,7 +93,7 @@ const UserDashboard = () => {
                 date={new Date(upcomingBookings[0].slot.date)}
                 renderer={renderCountdown}
               />
-              <div className="mt-4">
+              {/* <div className="mt-4">
                 <Button
                   variant="outline"
                   onClick={() =>
@@ -102,7 +102,7 @@ const UserDashboard = () => {
                 >
                   View Details
                 </Button>
-              </div>
+              </div> */}
             </CardContent>
           </Card>
         )}

@@ -58,13 +58,45 @@ const router = createBrowserRouter([
 
       {
         path: "/admin",
-        element: <AdminLayout />,
+        element: (
+          <PrivateRoute>
+            <AdminLayout />
+          </PrivateRoute>
+        ),
         errorElement: <NotFound />,
         children: [
-          { path: "services", element: <ServiceManagement /> },
-          { path: "slots", element: <SlotManagement /> },
-          { path: "users", element: <UserManagement /> },
-          { path: "bookings", element: <BookingList /> },
+          {
+            path: "services",
+            element: (
+              <PrivateRoute>
+                <ServiceManagement />
+              </PrivateRoute>
+            ),
+          },
+          {
+            path: "slots",
+            element: (
+              <PrivateRoute>
+                <SlotManagement />
+              </PrivateRoute>
+            ),
+          },
+          {
+            path: "users",
+            element: (
+              <PrivateRoute>
+                <UserManagement />
+              </PrivateRoute>
+            ),
+          },
+          {
+            path: "bookings",
+            element: (
+              <PrivateRoute>
+                <BookingList />
+              </PrivateRoute>
+            ),
+          },
         ],
       },
     ],
