@@ -8,6 +8,7 @@ import {
 } from "@/redux/features/signupSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import React from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 const SignUp: React.FC = () => {
@@ -28,6 +29,7 @@ const SignUp: React.FC = () => {
       phone,
       password,
     });
+    toast.success("User Sign Up Successfully");
     console.log({ name, email, password, phone, address }, user);
     // Handle form submission logic
   };

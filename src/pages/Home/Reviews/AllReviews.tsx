@@ -1,3 +1,4 @@
+import Loader from "@/pages/shared/Loader/Loader";
 import { useGetAllReviewsQuery } from "@/redux/api/reviewApi";
 import { Rating } from "@smastrom/react-rating";
 
@@ -8,7 +9,12 @@ const AllReviews = () => {
     isError,
   } = useGetAllReviewsQuery(undefined);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <p>
+        <Loader></Loader>{" "}
+      </p>
+    );
   if (isError) return <p>Error fetching reviews.</p>;
 
   const averageRating =

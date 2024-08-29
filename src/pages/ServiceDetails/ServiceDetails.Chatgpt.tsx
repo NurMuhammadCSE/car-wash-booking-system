@@ -2,6 +2,7 @@
 import getAllProducts from "@/data/ServicesData";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Loader from "../shared/Loader/Loader";
 
 // Mock data to simulate fetching a service by ID
 
@@ -37,7 +38,7 @@ const ServiceDetailsChatGPT = () => {
   };
 
   if (!service) {
-    return <div>Loading...</div>;
+    return <div><Loader></Loader>{" "}</div>;
   }
 
   return (

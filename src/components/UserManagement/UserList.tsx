@@ -23,6 +23,7 @@ import {
 import { useAppSelector } from "@/redux/hooks";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import Loader from "@/pages/shared/Loader/Loader";
 
 const roleColors: { [key: string]: string } = {
   admin: "bg-red-500 text-white",
@@ -37,7 +38,7 @@ const UserList: React.FC = () => {
   const handleRoleUpdate = async (userId: string, role: string) => {
     try {
       await updateUserRole({ userId, role, token }).unwrap();
-      toast.success("Role Updated Successfully")
+      toast.success("Role Updated Successfully");
       // Swal.fire({
       //   title: "Success!",
       //   text: "Role updated successfully.",
@@ -56,7 +57,11 @@ const UserList: React.FC = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Loader></Loader>{" "}
+      </div>
+    );
   }
 
   return (

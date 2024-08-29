@@ -37,11 +37,9 @@ const Navbar = () => {
 
   return (
     <header
-      className={`bg-[#30415A] text-white rounded-sm px-3 ${
-        isDarkMode ? "dark" : ""
-      }`}
+      className={`bg-[#30415A] max-w-screen-xl text-white rounded-sm ${isDarkMode ? "dark" : ""}`}
     >
-      <nav className="container mx-auto flex items-center justify-between space-x-10 py-4">
+      <nav className="container text-white bg-[#30415A] fixed z-10 bg-opacity-30  mx-auto flex items-center justify-between space-x-10 py-4">
         <Link to="/" className="text-white font-bold text-lg">
           Car Washing
         </Link>

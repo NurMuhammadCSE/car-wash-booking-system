@@ -11,6 +11,7 @@ import "react-calendar/dist/Calendar.css";
 import { useAppSelector } from "@/redux/hooks";
 import { useCreateBookingMutation } from "@/redux/api/bookingApi";
 import Swal from "sweetalert2";
+import Loader from "../shared/Loader/Loader";
 
 const ServiceDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -72,7 +73,11 @@ const ServiceDetails = () => {
   };
 
   if (isServiceLoading || isSlotsLoading) {
-    return <div className="text-center text-lg text-gray-600">Loading...</div>;
+    return (
+      <div className="text-center text-lg text-gray-600">
+        <Loader></Loader>{" "}
+      </div>
+    );
   }
 
   if (isServiceError || isSlotsError) {

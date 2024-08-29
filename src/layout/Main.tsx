@@ -7,7 +7,7 @@ const Main = () => {
     location.pathname.includes("login") || location.pathname.includes("signup");
 
   return (
-    <div className="min-h-screen w-full mx-auto">
+    <div className="">
       {noHeaderFooter || <Navbar></Navbar>}
       <div className=" min-h-[calc(100vh-68px)]">
         <Outlet />

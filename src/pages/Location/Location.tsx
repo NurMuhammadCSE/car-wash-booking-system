@@ -7,8 +7,16 @@ const containerStyle = {
 };
 
 const center = {
-  lat: -34.397,
-  lng: 150.644,
+  lat: 23.8041,
+  lng: 90.4152,
+};
+
+const defaultProps = {
+  center: {
+    lat: 23.8041,
+    lng: 90.4152,
+  },
+  zoom: 14,
 };
 
 const Location = () => {

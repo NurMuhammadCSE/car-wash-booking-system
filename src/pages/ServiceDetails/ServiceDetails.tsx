@@ -9,6 +9,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { deselectSlot, selectSlot } from "@/redux/features/slotSlice";
+import Loader from "../shared/Loader/Loader";
 
 const ServiceDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -54,7 +55,11 @@ const ServiceDetails = () => {
   };
 
   if (isServiceLoading || isSlotsLoading) {
-    return <div className="text-center text-lg text-gray-600">Loading...</div>;
+    return (
+      <div className="text-center text-lg text-gray-600">
+        <Loader></Loader>{" "}
+      </div>
+    );
   }
 
   if (isServiceError || isSlotsError) {

@@ -14,6 +14,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Loader from "../shared/Loader/Loader";
 
 const UserDashboard = () => {
   const { user, token } = useAppSelector((state) => state.user);
@@ -26,7 +27,7 @@ const UserDashboard = () => {
     return null;
   }
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p><Loader></Loader>{" "}</p>;
 
   const pastBookings = data?.data?.filter(
     (booking) => new Date(booking.slot.date) < new Date()
@@ -146,7 +147,7 @@ const UserDashboard = () => {
             {upcomingBookings.map((booking) => (
               <Card
                 key={booking._id}
-                className="p-4 -100 rounded-lg shadow-md"
+                className="p-4 dark:text-white dark:bg-[#020817] bg-gray-100 rounded-lg shadow-md"
               >
                 <CardTitle className="text-xl font-semibold">
                   {booking.service.name}

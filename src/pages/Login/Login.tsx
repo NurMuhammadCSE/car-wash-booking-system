@@ -6,6 +6,7 @@ import { RootState } from "@/redux/store";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import toast from "react-hot-toast";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ const Login: React.FC = () => {
     // console.log("token", token, "user:", user);
     dispatch(setToken(token));
     dispatch(setUser(user));
+    toast.success("User Login Successfully")
     navigate("/");
   };
 

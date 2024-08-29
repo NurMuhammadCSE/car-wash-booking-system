@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import FeaturedServiceCard from "@/components/FeaturedServiceCard/FeaturedServiceCard";
+import Loader from "@/pages/shared/Loader/Loader";
 import { useGetServicesQuery } from "@/redux/api/servicesApi";
 
 const FeaturedServices = () => {
@@ -13,7 +14,9 @@ const FeaturedServices = () => {
         </h2>
 
         {isLoading ? (
-          <div className="text-2xl text-[#30415A]">Loading...</div>
+          <div className="text-2xl text-[#30415A]">
+            <Loader></Loader>{" "}
+          </div>
         ) : isError ? (
           <div className="text-2xl text-red-500">Something went wrong!</div>
         ) : (
