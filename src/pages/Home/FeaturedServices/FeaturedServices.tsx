@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import FeaturedServiceCard from "@/components/FeaturedServiceCard/FeaturedServiceCard";
 import Loader from "@/pages/shared/Loader/Loader";
-import { useGetServicesQuery } from "@/redux/api/servicesApi";
+import { useGetAllServicesQuery } from "@/redux/api/servicesApi";
 
 const FeaturedServices = () => {
-  const { data, isError, isLoading } = useGetServicesQuery("");
+  const { data, isError, isLoading } = useGetAllServicesQuery(undefined);
 
   return (
     <section className="py-12">
