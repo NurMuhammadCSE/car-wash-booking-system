@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,29 +8,29 @@ import "swiper/css/pagination";
 import { FiStar } from "react-icons/fi";
 import { useGetAllReviewsQuery } from "@/redux/api/reviewApi";
 
-const testimonials = [
-  {
-    name: "John Doe",
-    profileImage: "https://randomuser.me/api/portraits/men/32.jpg",
-    rating: 5,
-    review:
-      "The car wash service was fantastic! My car looks brand new. Highly recommended!",
-  },
-  {
-    name: "Jane Smith",
-    profileImage: "https://randomuser.me/api/portraits/women/44.jpg",
-    rating: 4,
-    review:
-      "Great service and quick turnaround. Will definitely use them again.",
-  },
-  {
-    name: "Sam Wilson",
-    profileImage: "https://randomuser.me/api/portraits/men/55.jpg",
-    rating: 5,
-    review:
-      "Excellent customer service and attention to detail. Very impressed!",
-  },
-];
+// const testimonials = [
+//   {
+//     name: "John Doe",
+//     profileImage: "https://randomuser.me/api/portraits/men/32.jpg",
+//     rating: 5,
+//     review:
+//       "The car wash service was fantastic! My car looks brand new. Highly recommended!",
+//   },
+//   {
+//     name: "Jane Smith",
+//     profileImage: "https://randomuser.me/api/portraits/women/44.jpg",
+//     rating: 4,
+//     review:
+//       "Great service and quick turnaround. Will definitely use them again.",
+//   },
+//   {
+//     name: "Sam Wilson",
+//     profileImage: "https://randomuser.me/api/portraits/men/55.jpg",
+//     rating: 5,
+//     review:
+//       "Excellent customer service and attention to detail. Very impressed!",
+//   },
+// ];
 
 const StarRating = ({ rating }: { rating: number }) => {
   return (
