@@ -82,7 +82,8 @@ const ServiceAreaMap: React.FC = () => {
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
-            zoom={4}
+            zoom={8}
+            options={{ mapId: "1ebc3ed57e00574e" }}
           >
             {locations.map((location, index) => (
               <Marker

@@ -32,7 +32,7 @@ const Promotions: React.FC = () => {
   return (
     <section className="bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-indigo-600 text-center mb-6">Current Promotions</h2>
+        <h2 className="text-4xl font-bold text-black text-center mb-6">Current Promotions</h2>
         <p className="text-lg text-gray-600 text-center mb-10">Don’t miss out on these special offers and discounts!</p>
 
         {/* Swiper Carousel for Promotions */}
@@ -52,7 +52,7 @@ const Promotions: React.FC = () => {
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white p-6">
                   <h3 className="text-3xl font-bold mb-4">{promo.title}</h3>
                   <p className="text-lg mb-6">{promo.description}</p>
-                  <button className="bg-indigo-600 py-2 px-6 rounded-md text-white font-semibold hover:bg-indigo-700 transition-colors">Redeem Offer</button>
+                  <button className="bg-[#30415A] py-2 px-6 rounded-md text-white font-semibold transition-colors">Redeem Offer</button>
                 </div>
               </div>
             </SwiperSlide>
