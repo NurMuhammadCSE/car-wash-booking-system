@@ -50,7 +50,7 @@ const StarRating = ({ rating }: { rating: number }) => {
 
 const CustomerTestimonials: React.FC = () => {
   const { data: reviews } = useGetAllReviewsQuery(undefined);
-  console.log(reviews?.data);
+  // console.log(reviews?.data);
   return (
     <section className="py-12 bg-gradient-to-b from-gray-50 to-gray-100">
       <div className="max-w-7xl mx-auto px-4">

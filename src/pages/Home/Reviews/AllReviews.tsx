@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Loader from "@/pages/shared/Loader/Loader";
+import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 import { useGetAllReviewsQuery } from "@/redux/api/reviewApi";
 import { Rating } from "@smastrom/react-rating";
 import { Helmet } from "react-helmet-async";
@@ -14,7 +14,8 @@ const AllReviews = () => {
   if (isLoading)
     return (
       <p>
-        <Loader></Loader>{" "}
+        {/* <Loader></Loader>{" "} */}
+        <LoadingSpinner></LoadingSpinner>
       </p>
     );
   if (isError) return <p>Error fetching reviews.</p>;

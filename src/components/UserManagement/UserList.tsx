@@ -22,8 +22,8 @@ import {
 } from "../ui/select";
 import { useAppSelector } from "@/redux/hooks";
 import toast from "react-hot-toast";
-import Loader from "@/pages/shared/Loader/Loader";
 import { Helmet } from "react-helmet-async";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 const roleColors: { [key: string]: string } = {
   admin: "bg-red-500 text-white",
@@ -59,7 +59,8 @@ const UserList: React.FC = () => {
   if (isLoading) {
     return (
       <div>
-        <Loader></Loader>{" "}
+        {/* <Loader></Loader>{" "} */}
+        <LoadingSpinner></LoadingSpinner>
       </div>
     );
   }

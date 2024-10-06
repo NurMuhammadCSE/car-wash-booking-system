@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { Chart } from "react-google-charts";
 import { useGetAllServicesQuery } from "@/redux/api/servicesApi";
@@ -6,6 +5,7 @@ import { useGetSlotsQuery } from "@/redux/api/SlotApi";
 import { useGetAllUsersQuery } from "@/redux/api/usersApi";
 import { useGetAllBookingsQuery } from "@/redux/api/bookingApi";
 import { useAppSelector } from "@/redux/hooks";
+import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 
 const Statistics: React.FC = () => {
   const { token } = useAppSelector((state) => state.user);
@@ -20,7 +20,7 @@ const Statistics: React.FC = () => {
   const { data: usersData, isLoading: isLoadingUsers } =
     useGetAllUsersQuery(token);
 
-  console.log(bookingsData, usersData);
+  // console.log(bookingsData, usersData);
 
   // Options for the Google Charts
   const chartOptions = (title: string) => ({
@@ -42,7 +42,10 @@ const Statistics: React.FC = () => {
     isLoadingSlots ||
     isLoadingUsers
   ) {
-    return <div>Loading...</div>;
+    return <div>
+
+      <LoadingSpinner></LoadingSpinner>
+    </div>;
   }
 
   // Sample dummy data for charts (replace with actual data from APIs)
@@ -104,7 +107,7 @@ const Statistics: React.FC = () => {
       {/* Separate Charts for each type of data */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Services Chart */}
-        <div className="w-full h-96 bg-white p-6 rounded-lg shadow-lg">
+        <div className="w-full h-96 dark:text-black dark:bg-black bg-white p-6 rounded-lg shadow-lg">
           <h2 className="text-center text-2xl font-bold mb-6">
             Services Overview
           </h2>
@@ -117,8 +120,8 @@ const Statistics: React.FC = () => {
         </div>
 
         {/* Bookings Chart */}
-        <div className="w-full h-96 bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-center text-2xl font-bold mb-6">
+        <div className="w-full h-96 dark:text-black dark:bg-black bg-white p-6 rounded-lg shadow-lg">
+          <h2 className="text-center  text-2xl font-bold mb-6">
             Bookings Overview
           </h2>
           <Chart
@@ -130,7 +133,7 @@ const Statistics: React.FC = () => {
         </div>
 
         {/* Slots Chart */}
-        <div className="w-full h-96 bg-white p-6 rounded-lg shadow-lg">
+        <div className="w-full h-96 dark:text-black dark:bg-black bg-white p-6 rounded-lg shadow-lg">
           <h2 className="text-center text-2xl font-bold mb-6">
             Slots Overview
           </h2>
@@ -143,7 +146,7 @@ const Statistics: React.FC = () => {
         </div>
 
         {/* Users Chart */}
-        <div className="w-full h-96 bg-white p-6 rounded-lg shadow-lg">
+        <div className="w-full h-96  dark:text-black dark:bg-black bg-white p-6 rounded-lg shadow-lg">
           <h2 className="text-center text-2xl font-bold mb-6">
             Users Overview
           </h2>
@@ -156,7 +159,7 @@ const Statistics: React.FC = () => {
         </div>
 
         {/* Pie Chart for Overall Data Distribution */}
-        <div className="w-full h-96 bg-white p-6 rounded-lg shadow-lg">
+        <div className="w-full h-96 dark:text-black dark:bg-black bg-white p-6 rounded-lg shadow-lg">
           <h2 className="text-center text-2xl font-bold mb-6">
             Data Distribution
           </h2>

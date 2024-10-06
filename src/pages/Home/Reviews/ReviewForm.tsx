@@ -43,7 +43,7 @@ const ReviewForm = () => {
       }).unwrap();
       toast.success("Successfully Review!");
 
-      console.log("Review submitted successfully");
+      // console.log("Review submitted successfully");
       setRating(0); // Clear rating
       setFeedback(""); // Clear feedback
     } catch (error) {

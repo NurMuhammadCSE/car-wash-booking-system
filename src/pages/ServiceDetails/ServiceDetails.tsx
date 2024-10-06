@@ -9,8 +9,8 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { deselectSlot, selectSlot } from "@/redux/features/slotSlice";
-import Loader from "../shared/Loader/Loader";
 import { Helmet } from "react-helmet-async";
+import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 
 const ServiceDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -58,7 +58,8 @@ const ServiceDetails = () => {
   if (isServiceLoading || isSlotsLoading) {
     return (
       <div className="text-center text-lg text-gray-600">
-        <Loader></Loader>{" "}
+        {/* <Loader></Loader>{" "} */}
+        <LoadingSpinner></LoadingSpinner>
       </div>
     );
   }

@@ -26,7 +26,7 @@ const slotApi = baseApi.injectEndpoints({
     // }),
     createSlot: builder.mutation({
       query: ({ slotDetails, token }) => {
-        console.log(slotDetails, token);
+        // console.log(slotDetails, token);
         return {
           url: "/services/slots",
           method: "POST",

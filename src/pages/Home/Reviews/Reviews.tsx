@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Loader from "@/pages/shared/Loader/Loader";
+import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 import { useGetAllReviewsQuery } from "@/redux/api/reviewApi";
 import { Rating } from "@smastrom/react-rating";
 import { Link } from "react-router-dom";
@@ -11,7 +11,10 @@ const Reviews = () => {
     isError,
   } = useGetAllReviewsQuery(undefined);
 
-  if (isLoading) return <p><Loader></Loader>{" "}</p>;
+  if (isLoading) return <p>
+    {/* <Loader></Loader>{" "} */}
+    <LoadingSpinner></LoadingSpinner>
+  </p>;
   if (isError) return <p>Error fetching reviews.</p>;
 
   const averageRating =

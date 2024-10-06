@@ -14,7 +14,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Loader from "../shared/Loader/Loader";
+import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 
 const UserDashboard = () => {
   const { user, token } = useAppSelector((state) => state.user);
@@ -30,7 +30,8 @@ const UserDashboard = () => {
   if (isLoading)
     return (
       <p>
-        <Loader></Loader>{" "}
+        {/* <Loader></Loader>{" "} */}
+        <LoadingSpinner></LoadingSpinner>
       </p>
     );
 

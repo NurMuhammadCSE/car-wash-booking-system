@@ -10,8 +10,8 @@ import {
 } from "../ui/table";
 import { useAppSelector } from "@/redux/hooks";
 import { useGetAllBookingsQuery } from "@/redux/api/bookingApi";
-import Loader from "@/pages/shared/Loader/Loader";
 import { Helmet } from "react-helmet-async";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 const statusColors: { [key: string]: string } = {
   confirmed: "bg-green-500 text-white",
@@ -27,7 +27,8 @@ const BookingList: React.FC = () => {
   if (isLoading) {
     return (
       <div>
-        <Loader></Loader>{" "}
+        {/* <Loader></Loader>{" "} */}
+        <LoadingSpinner></LoadingSpinner>
       </div>
     );
   }

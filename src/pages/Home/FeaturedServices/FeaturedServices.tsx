@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import FeaturedServiceCard from "@/components/FeaturedServiceCard/FeaturedServiceCard";
-import Loader from "@/pages/shared/Loader/Loader";
+import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 import { useGetAllServicesQuery } from "@/redux/api/servicesApi";
 
 const FeaturedServices = () => {
@@ -15,7 +15,8 @@ const FeaturedServices = () => {
 
         {isLoading ? (
           <div className="text-2xl text-[#30415A]">
-            <Loader></Loader>{" "}
+            {/* <Loader></Loader>{" "} */}
+            <LoadingSpinner></LoadingSpinner>
           </div>
         ) : isError ? (
           <div className="text-2xl text-red-500">Something went wrong!</div>

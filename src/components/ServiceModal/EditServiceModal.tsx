@@ -108,7 +108,7 @@ export function EditServiceModal({ service }: EditServiceModalProps) {
       image: imageUrl,
     };
 
-    console.log(updatedService);
+    // console.log(updatedService);
 
     await updateService({ id: service._id, token, updatedService }).unwrap();
     toast.success("Service is Edited Successfully")

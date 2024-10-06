@@ -25,12 +25,6 @@ const Home = () => {
       {/* Featured Services */}
       <FeaturedServices />
 
-      {/* How the booking system works */}
-      <HowItWorks />
-
-      {/* Why choose our services */}
-      <WhyChooseUs />
-
       {/* Customer Testimonials */}
       <CustomerTestimonials />
 
@@ -39,6 +33,12 @@ const Home = () => {
 
       {/* Locations with black background */}
       <Location />
+
+      {/* How the booking system works */}
+      <HowItWorks />
+
+      {/* Why choose our services */}
+      <WhyChooseUs />
 
       {/* Contact and Support Information */}
       <ContactAndSupport />

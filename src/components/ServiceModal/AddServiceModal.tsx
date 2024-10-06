@@ -108,7 +108,7 @@ export function AddServiceModal() {
       image: imageUrl,
     };
 
-    console.log(serviceDetails);
+    // console.log(serviceDetails);
 
     try {
       // Add the service

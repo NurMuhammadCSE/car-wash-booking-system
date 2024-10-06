@@ -1,4 +1,4 @@
-import { Moon, Sun } from "lucide-react";
+// import { Moon, Sun } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
@@ -7,7 +7,7 @@ import { logout } from "@/redux/features/userSlice";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  // const [isDarkMode, setIsDarkMode] = useState(false);
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -17,10 +17,10 @@ const Navbar = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const handleDarkModeToggle = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle("dark", !isDarkMode);
-  };
+  // const handleDarkModeToggle = () => {
+  //   setIsDarkMode(!isDarkMode);
+  //   document.documentElement.classList.toggle("dark", !isDarkMode);
+  // };
 
   const dispatch = useAppDispatch();
 
@@ -37,9 +37,7 @@ const Navbar = () => {
 
   return (
     <header
-      className={`bg-[#30415A] text-white rounded-sm ${
-        isDarkMode ? "dark" : ""
-      }`}
+      className={`bg-[#30415A] fixed w-full z-10 shadow-sm text-white rounded-sm`}
     >
       <nav className="container text-white bg-[#30415A] mx-auto flex items-center justify-between space-x-10 py-4">
         <Link to="/" className="text-white font-bold text-lg">
@@ -116,7 +114,7 @@ const Navbar = () => {
                 )}
               </li>
             )}
-            <li>
+            {/* <li>
               <button
                 aria-label="Toggle Dark Mode"
                 onClick={handleDarkModeToggle}
@@ -124,7 +122,7 @@ const Navbar = () => {
               >
                 {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
               </button>
-            </li>
+            </li> */}
           </ul>
         </div>
 
@@ -224,7 +222,7 @@ const Navbar = () => {
               )}
             </li>
           )}
-          <li>
+          {/* <li>
             <button
               aria-label="Toggle Dark Mode"
               onClick={handleDarkModeToggle}
@@ -232,7 +230,7 @@ const Navbar = () => {
             >
               {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
             </button>
-          </li>
+          </li> */}
         </ul>
       )}
     </header>
