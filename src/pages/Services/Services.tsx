@@ -34,7 +34,7 @@ const Services = () => {
         <title>All Service - Car Washing</title>
       </Helmet>
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-[#30415A] drop-shadow-lg dark:text-white">
+        <h2 className="text-4xl md:text-4xl font-bold mb-8 text-[#30415A] drop-shadow-lg dark:text-white">
           Our Services
         </h2>
 

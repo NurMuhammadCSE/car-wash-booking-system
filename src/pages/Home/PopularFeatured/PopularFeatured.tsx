@@ -5,7 +5,7 @@ const services = [
     id: 1,
     name: "Exterior Wash",
     description: "Get a spotless shine with our exterior-only wash.",
-    image: "/images/exterior-wash.jpg", // Add appropriate image URLs
+    image: "https://images.unsplash.com/photo-1689182358896-2514cd65dfff?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Add appropriate image URLs
     price: "$15",
   },
   {
@@ -13,21 +13,21 @@ const services = [
     name: "Interior Cleaning",
     description:
       "Deep cleaning of your car’s interior, leaving it fresh and clean.",
-    image: "/images/interior-cleaning.jpg",
+    image: "https://plus.unsplash.com/premium_photo-1664300115952-a2ec14ed32fc?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "$25",
   },
   {
     id: 3,
     name: "Full Detailing",
     description: "Complete detailing inside and out for a pristine car.",
-    image: "/images/full-detailing.jpg",
+    image: "https://plus.unsplash.com/premium_photo-1670002392440-0a64552ae431?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "$50",
   },
   {
     id: 4,
     name: "Premium Wash",
     description: "Luxury wash with premium wax and finishing touches.",
-    image: "/images/premium-wash.jpg",
+    image: "https://plus.unsplash.com/premium_photo-1664298064912-4caa5049602e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     price: "$40",
   },
 ];
