@@ -78,7 +78,7 @@ const ServiceDetails = () => {
         <title>Service Details - Car Washing</title>
       </Helmet>
       {/* Banner Image */}
-      <div className="relative h-64 md:h-96 mb-8 overflow-hidden rounded-lg">
+      <div className="relative mt-14 h-64 md:h-96 mb-8 overflow-hidden rounded-lg">
         <img
           src={serviceData?.data?.image}
           alt={serviceData?.data?.name}

@@ -12,7 +12,7 @@ import { useGetBookingQuery } from "@/redux/api/bookingApi";
 import { useAppSelector } from "@/redux/hooks";
 import { CheckCircle } from "lucide-react";
 import { format } from "date-fns";
-import Loader from "../shared/Loader/Loader";
+import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 
 const MyBookings = () => {
   const { token } = useAppSelector((state) => state.user);
@@ -21,15 +21,15 @@ const MyBookings = () => {
   if (isLoading)
     return (
       <div className="flex justify-center items-center h-full">
-        <Loader />
+       <LoadingSpinner></LoadingSpinner>
       </div>
     );
 
   return (
     <div className="container mx-auto p-6 dark:bg-gray-900 dark:text-white bg-white rounded-lg shadow-xl">
-      <Card className="dark:bg-gray-800">
+      <Card className="dark:bg-gray-800 mt-14">
         <CardHeader className="flex items-center justify-center border-b border-gray-300 dark:border-gray-700 pb-4">
-          <CardTitle className="text-3xl font-bold flex items-center gap-3">
+          <CardTitle className="text-3xl  font-bold flex items-center gap-3">
             My Bookings
           </CardTitle>
         </CardHeader>
