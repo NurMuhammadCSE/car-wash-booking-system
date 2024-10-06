@@ -38,9 +38,7 @@ const Home = () => {
       <ReviewForm />
 
       {/* Locations with black background */}
-      <div style={{ backgroundColor: "#000000" }}>
-        <Location />
-      </div>
+      <Location />
 
       {/* Contact and Support Information */}
       <ContactAndSupport />

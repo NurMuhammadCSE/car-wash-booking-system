@@ -17,6 +17,7 @@ import UpdateProfile from "@/components/UpdateProfiles/UpdateProfiles";
 import AllReviews from "@/pages/Home/Reviews/AllReviews";
 import PrivateRoute from "./PrivateRoutes";
 import MyBookings from "@/pages/Booking/MyBookings";
+import Statistics from "@/pages/AdminDashboard/Statistics/Statistics";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,16 @@ const router = createBrowserRouter([
             <Dashboard />
           </PrivateRoute>
         ),
+        children: [
+          {
+            index: true,
+            element: (
+              <PrivateRoute>
+                <Statistics />
+              </PrivateRoute>
+            ),
+          },
+        ],
       },
 
       {

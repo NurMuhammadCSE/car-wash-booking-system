@@ -37,7 +37,9 @@ const Navbar = () => {
 
   return (
     <header
-      className={`bg-[#30415A] text-white rounded-sm ${isDarkMode ? "dark" : ""}`}
+      className={`bg-[#30415A] text-white rounded-sm ${
+        isDarkMode ? "dark" : ""
+      }`}
     >
       <nav className="container text-white bg-[#30415A] mx-auto flex items-center justify-between space-x-10 py-4">
         <Link to="/" className="text-white font-bold text-lg">
@@ -93,6 +95,15 @@ const Navbar = () => {
                 />
                 {isDropdownOpen && (
                   <ul className="absolute right-0 mt-1 w-20 bg-white text-black rounded-lg shadow-lg z-20">
+                    <li>
+                      <Link
+                        to="/update-profile"
+                        className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-200"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        Profile
+                      </Link>
+                    </li>
                     <li>
                       <button
                         onClick={handleLogout}
