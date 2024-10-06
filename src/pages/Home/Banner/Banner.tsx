@@ -5,7 +5,7 @@ const Banner = () => {
     <section className="relative text-white overflow-hidden">
       {/* Background Image */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute  inset-0 bg-cover bg-center"
         style={{
           backgroundImage: `url('https://rb.gy/dmrzfs')`,
         }}
@@ -13,7 +13,7 @@ const Banner = () => {
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-gray-800/60"></div>
       {/* Content Wrapper */}
-      <div className="relative container mx-auto px-4 py-24 lg:py-32 text-center">
+      <div className="relative mt-16 container mx-auto px-4 py-24 lg:py-32 text-center">
         <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
           Shine Brighter with Our Premium Car Wash Services
         </h1>

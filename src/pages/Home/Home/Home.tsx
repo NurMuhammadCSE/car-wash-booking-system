@@ -16,14 +16,14 @@ const Home = () => {
       {/* Hero Banner */}
       <Banner />
 
-      {/* Promotions: Grab attention with discounts/offers */}
-      <Promotions />
-
       {/* Popular Services */}
       <PopularFeatured />
 
       {/* Featured Services */}
       <FeaturedServices />
+
+      {/* Promotions: Grab attention with discounts/offers */}
+      <Promotions />
 
       {/* Customer Testimonials */}
       <CustomerTestimonials />

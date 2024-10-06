@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { logout } from "@/redux/features/userSlice";
+import { logout, setUser } from "@/redux/features/userSlice";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,6 +32,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(setUser(""));
     setIsDropdownOpen(false);
   };
 
