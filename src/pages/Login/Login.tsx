@@ -56,17 +56,25 @@ const Login: React.FC = () => {
         <h2 className="text-2xl font-semibold text-center text-[#30415A]">
           Login
         </h2>
-                {/* Demo Credentials Section */}
-                <div className="mt-6 p-4 border-t border-gray-300">
+        {/* Demo Credentials Section */}
+        <div className="mt-6 p-4 border-t border-gray-300">
           <div className="mt-2">
             <h4 className="text-md font-medium">Admin Login</h4>
-            <p className="text-gray-700">Email: <span className="font-bold">web@programming-hero.com</span></p>
-            <p className="text-gray-700">Password: <span className="font-bold">ph-password</span></p>
+            <p className="text-gray-700">
+              Email: <span className="font-bold">admin@gmail.com</span>
+            </p>
+            <p className="text-gray-700">
+              Password: <span className="font-bold">ph-password</span>
+            </p>
           </div>
           <div className="mt-2">
             <h4 className="text-md font-medium">User Login</h4>
-            <p className="text-gray-700">Email: <span className="font-bold">web1@programming-hero.com</span></p>
-            <p className="text-gray-700">Password: <span className="font-bold">ph-password</span></p>
+            <p className="text-gray-700">
+              Email: <span className="font-bold">user@gmail.com</span>
+            </p>
+            <p className="text-gray-700">
+              Password: <span className="font-bold">ph-password</span>
+            </p>
           </div>
         </div>
         <form className="mt-6 space-y-4" onSubmit={handleSubmit(onSubmit)}>
@@ -135,8 +143,6 @@ const Login: React.FC = () => {
             </button>
           </div>
         </form>
-
-
       </div>
     </div>
   );
