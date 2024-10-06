@@ -24,7 +24,7 @@ const Banner = () => {
         <div className="flex justify-center gap-4">
           <Link
             to="/services"
-            className="bg-yellow-400 text-black font-semibold py-3 px-4 rounded-lg hover:bg-[#30415A] hover:text-white transition duration-300 shadow-lg text-xl md:text-2xl sm:text-xl"
+            className="bg-[#30415A] text-white font-semibold py-3 px-4 rounded-lg hover:bg-[#30415A] hover:text-white transition duration-300 shadow-lg text-xl md:text-2xl sm:text-xl"
           >
             Explore Services
           </Link>

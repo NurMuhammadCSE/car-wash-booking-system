@@ -25,7 +25,7 @@ import {
   TableRow,
 } from "../ui/table";
 import { Input } from "../ui/input";
-import { useGetServicesQuery } from "@/redux/api/servicesApi";
+import { useGetAllServicesQuery } from "@/redux/api/servicesApi";
 import {
   Select,
   SelectTrigger,
@@ -48,7 +48,7 @@ const SlotManagement = () => {
   const { data: slots, refetch } = useGetSlotsQuery(undefined);
   const [updateSlot] = useUpdateSlotMutation();
   const [createSlot] = useCreateSlotMutation();
-  const { data: services } = useGetServicesQuery("");
+  const { data: services } = useGetAllServicesQuery(undefined);
   const { token } = useAppSelector((state) => state.user);
 
   const [service, setService] = useState<string>("");

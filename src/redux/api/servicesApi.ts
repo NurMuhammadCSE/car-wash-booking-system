@@ -5,7 +5,7 @@ const authApi = baseApi.injectEndpoints({
     getServices: builder.query({
       query: ({ searchTerm, sort, filter }) => {
         let queryString = `/services?`;
-    
+
         if (searchTerm) {
           queryString += `searchTerm=${searchTerm}&`;
         }
@@ -18,25 +18,26 @@ const authApi = baseApi.injectEndpoints({
         if (filter.duration) {
           queryString += `duration=${filter.duration}&`;
         }
-    
+
         // Remove the trailing '&' or '?' if no filters are applied
         queryString = queryString.slice(0, -1);
-    
+
         return {
           url: queryString,
           method: "GET",
         };
       },
-      providesTags: ["Service"],
+      // providesTags: ["Service"],
     }),
 
     getAllServices: builder.query({
-      query:() =>({
-        url:'/services',
-        method:"GET"
-      })
+      query: () => ({
+        url: "/services",
+        method: "GET",
+      }),
+      providesTags: ["Service"],
     }),
-    
+
     getServiceById: builder.query({
       query: (id: string) => ({
         url: `/services/${id}`,
@@ -73,7 +74,7 @@ const authApi = baseApi.injectEndpoints({
     }),
     updateService: builder.mutation({
       query: ({ id, token, updatedService }) => {
-        console.log(id, token, updatedService);
+        // console.log(id, token, updatedService);
         return {
           url: `/services/${id}`,
           method: "PATCH",
@@ -106,5 +107,5 @@ export const {
   useAddServiceMutation,
   useDeleteServiceMutation,
   useUpdateServiceMutation,
-  useGetAllServicesQuery
+  useGetAllServicesQuery,
 } = authApi;

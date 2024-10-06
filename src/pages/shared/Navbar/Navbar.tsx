@@ -1,4 +1,4 @@
-import { Moon, Sun } from "lucide-react"; // Import the Sun icon as well
+import { Moon, Sun } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
@@ -7,7 +7,7 @@ import { logout } from "@/redux/features/userSlice";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false); // State for dark mode
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -19,13 +19,13 @@ const Navbar = () => {
 
   const handleDarkModeToggle = () => {
     setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle("dark", !isDarkMode); // Toggle dark mode class on <html>
+    document.documentElement.classList.toggle("dark", !isDarkMode);
   };
 
   const dispatch = useAppDispatch();
 
-  // Get the user's authentication state
-  const { token } = useAppSelector((state) => state.user);
+  // Get the user's authentication state and role
+  const { token, user } = useAppSelector((state) => state.user);
 
   // Dummy user avatar; replace with actual data from user profile if available
   const userAvatar = "https://avatar.iran.liara.run/public";
@@ -39,8 +39,7 @@ const Navbar = () => {
     <header
       className={`bg-[#30415A] text-white rounded-sm ${isDarkMode ? "dark" : ""}`}
     >
-      {/* fixed z-10 bg-opacity-30  */}
-      <nav className="container text-white bg-[#30415A]  mx-auto flex items-center justify-between space-x-10 py-4">
+      <nav className="container text-white bg-[#30415A] mx-auto flex items-center justify-between space-x-10 py-4">
         <Link to="/" className="text-white font-bold text-lg">
           Car Wash
         </Link>
@@ -55,6 +54,17 @@ const Navbar = () => {
                 Services
               </Link>
             </li>
+            {/* Conditionally render the Bookings link based on user role */}
+            {user?.role !== "admin" && (
+              <li>
+                <Link
+                  className="rounded-lg backdrop-blur-[2px] p-1 inline-block text-white hover:bg-white hover:text-black transition duration-300"
+                  to="/booking"
+                >
+                  Bookings
+                </Link>
+              </li>
+            )}
             <li>
               <Link
                 className="rounded-lg backdrop-blur-[2px] p-1 inline-block text-white hover:bg-white hover:text-black transition duration-300"
@@ -79,16 +89,14 @@ const Navbar = () => {
                   alt="User Avatar"
                   className="w-8 h-8 rounded-full cursor-pointer"
                   onClick={handleAvatarClick}
-                  style={{ zIndex: 10 }} // Add z-index here
+                  style={{ zIndex: 10 }}
                 />
                 {isDropdownOpen && (
                   <ul className="absolute right-0 mt-1 w-20 bg-white text-black rounded-lg shadow-lg z-20">
-                    {" "}
-                    {/* Add z-index here */}
                     <li>
                       <button
                         onClick={handleLogout}
-                        className="block w-full text-left px-4 py-2 text-sm "
+                        className="block w-full text-left px-4 py-2 text-sm"
                       >
                         Logout
                       </button>
@@ -100,11 +108,10 @@ const Navbar = () => {
             <li>
               <button
                 aria-label="Toggle Dark Mode"
-                onClick={handleDarkModeToggle} // Add dark mode toggle handler
+                onClick={handleDarkModeToggle}
                 className="rounded-lg backdrop-blur-[2px] p-1 inline-block text-white hover:bg-white hover:text-black transition duration-300"
               >
-                {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}{" "}
-                {/* Toggle icon based on dark mode state */}
+                {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
               </button>
             </li>
           </ul>
@@ -154,6 +161,17 @@ const Navbar = () => {
               Services
             </Link>
           </li>
+          {user?.role !== "admin" && (
+            <li>
+              <Link
+                className="rounded-lg backdrop-blur-[2px] p-1 inline-block text-white hover:bg-white hover:text-black transition duration-300"
+                to="/booking"
+                onClick={handleMenuToggle}
+              >
+                Bookings
+              </Link>
+            </li>
+          )}
           <li>
             <Link
               className="rounded-lg backdrop-blur-[2px] p-1 inline-block text-white hover:bg-white hover:text-black transition duration-300"
@@ -198,11 +216,10 @@ const Navbar = () => {
           <li>
             <button
               aria-label="Toggle Dark Mode"
-              onClick={handleDarkModeToggle} // Add dark mode toggle handler
+              onClick={handleDarkModeToggle}
               className="rounded-lg backdrop-blur-[2px] p-1 inline-block text-white hover:bg-white hover:text-black transition duration-300"
             >
-              {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}{" "}
-              {/* Toggle icon based on dark mode state */}
+              {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
             </button>
           </li>
         </ul>

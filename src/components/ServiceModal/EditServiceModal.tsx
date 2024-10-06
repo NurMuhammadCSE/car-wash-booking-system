@@ -69,7 +69,7 @@ export function EditServiceModal({ service }: EditServiceModalProps) {
             "Content-Type": "multipart/form-data",
           },
           params: {
-            key: "9e4448d39c26b95842d329e17e2c0db3",
+            key: "68c40fc46fe61300befd1b168543a8b7",
             // key: process.env.NEXT_PUBLIC_IMGBB_API_KEY,
           },
         }

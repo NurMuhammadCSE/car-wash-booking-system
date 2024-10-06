@@ -27,13 +27,18 @@ const UserDashboard = () => {
     return null;
   }
 
-  if (isLoading) return <p><Loader></Loader>{" "}</p>;
+  if (isLoading)
+    return (
+      <p>
+        <Loader></Loader>{" "}
+      </p>
+    );
 
   const pastBookings = data?.data?.filter(
-    (booking:any) => new Date(booking.slot.date) < new Date()
+    (booking: any) => new Date(booking.slot.date) < new Date()
   );
   const upcomingBookings = data?.data?.filter(
-    (booking:any) => new Date(booking.slot.date) >= new Date()
+    (booking: any) => new Date(booking.slot.date) >= new Date()
   );
 
   const renderCountdown = ({
@@ -123,7 +128,7 @@ const UserDashboard = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {pastBookings.map((booking:any) => (
+              {pastBookings.map((booking: any) => (
                 <TableRow key={booking._id}>
                   <TableCell>{booking.service.name}</TableCell>
                   <TableCell>
@@ -144,7 +149,7 @@ const UserDashboard = () => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {upcomingBookings.map((booking:any) => (
+            {upcomingBookings.map((booking: any) => (
               <Card
                 key={booking._id}
                 className="p-4 dark:text-white dark:bg-[#020817] bg-gray-100 rounded-lg shadow-md"

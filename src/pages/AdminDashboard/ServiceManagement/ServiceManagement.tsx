@@ -69,7 +69,7 @@ const ServiceManagement = () => {
           <TableHeader>
             <TableRow>
               <TableHead className="w-[150px] text-center">Name</TableHead>
-              <TableHead className="text-center">Description</TableHead>
+              <TableHead className="text-center">Image</TableHead>
               <TableHead className="text-center">Price</TableHead>
               <TableHead className="text-center">Duration</TableHead>
               <TableHead className="text-center">Status</TableHead>
@@ -83,7 +83,7 @@ const ServiceManagement = () => {
                   {service.name}
                 </TableCell>
                 <TableCell className="text-center">
-                  {service.description}
+                  <img src={service.image} alt="" className="mx-auto rounded-full h-10 w-10" />
                 </TableCell>
                 <TableCell className="text-center">
                   ${service.price.toFixed(2)}

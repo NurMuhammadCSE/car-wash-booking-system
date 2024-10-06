@@ -9,15 +9,18 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
   const { email, password } = useAppSelector((state) => state.login);
-  const [login] = useLoginMutation();
 
+  const [Login] = useLoginMutation();
+
+  // const { token } = useAppSelector((state: RootState) => state.user);
+  // console.log("token", token);
   type Inputs = {
     email: string;
     password: string;
   };
-
   const {
     register,
     handleSubmit,
@@ -30,8 +33,9 @@ const Login: React.FC = () => {
       password: data.password,
     };
     try {
-      const user = await login(loginInfo);
+      const user = await Login(loginInfo);
       const err = user?.error as { data?: { message?: string } };
+      // console.log(err?.data?.message);
 
       if (err?.data?.message === "User Not Found") {
         toast.error("User Not Found");
@@ -41,14 +45,31 @@ const Login: React.FC = () => {
         toast.success("User Login Successfully");
         const { token } = user.data;
         const userToken = jwtDecode(token);
+        // console.log("token: ", token, "user: ", user, "UserToken: ", userToken);
         dispatch(setToken(token));
         dispatch(setUser(userToken));
-        navigate("/");
+        navigate("/"); // Redirect to login on success
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
+
+  //! First Time
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   const { data } = await Login({ email, password });
+
+  //   const { token } = data;
+
+  //   const user = jwtDecode(token);
+
+  //   // console.log("token", token, "user:", user);
+  //   dispatch(setToken(token));
+  //   dispatch(setUser(user));
+  //   toast.success("User Login Successfully")
+  //   navigate("/");
+  // };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#30415A] via-[#3D6D8D] to-[#4A9BB5]">
@@ -65,7 +86,7 @@ const Login: React.FC = () => {
               Email
             </label>
             <input
-              type="email"
+              type="text"
               id="email"
               value={email}
               {...register("email", { required: true })}
@@ -89,7 +110,7 @@ const Login: React.FC = () => {
               value={password}
               {...register("password", { required: true })}
               onChange={(e) => dispatch(setLoginPassword(e.target.value))}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#30415A] focus:border-[#30415A] sm:text-sm"
+              className="mt-1 block w-full dark:text-black px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#30415A] focus:border-[#30415A] sm:text-sm"
             />
             {errors.password?.type === "required" && (
               <p className="text-red-500">Password is required</p>

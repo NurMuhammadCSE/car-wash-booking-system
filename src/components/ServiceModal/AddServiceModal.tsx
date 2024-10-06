@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Dialog,
@@ -8,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState, FormEvent } from "react";
+import { useState } from "react";
 import { Button } from "../ui/button";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
@@ -16,6 +17,7 @@ import { useAddServiceMutation } from "@/redux/api/servicesApi";
 import { useAppSelector } from "@/redux/hooks";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 export function AddServiceModal() {
   const [name, setName] = useState("");
@@ -50,7 +52,7 @@ export function AddServiceModal() {
             "Content-Type": "multipart/form-data",
           },
           params: {
-            key: "9e4448d39c26b95842d329e17e2c0db3",
+            key: "68c40fc46fe61300befd1b168543a8b7",
             // key: process.env.NEXT_PUBLIC_IMGBB_API_KEY,
           },
         }
@@ -63,9 +65,18 @@ export function AddServiceModal() {
       setUploading(false);
     }
   };
+  type Inputs = {
+    name: string;
+    description: string;
+    image: string;
+    price: string;
+    duration: string;
+  };
 
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const { register, handleSubmit } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    // data.preventDefault();
 
     if (!name || !description || price === "" || duration === "") {
       alert("Please fill out all fields before submitting.");
@@ -81,20 +92,53 @@ export function AddServiceModal() {
       }
     }
 
+    // const serviceDetails = {
+    //   name,
+    //   description,
+    //   price: Number(price),
+    //   duration: Number(duration),
+    //   image: imageUrl,
+    // };
+
     const serviceDetails = {
-      name,
-      description,
-      price: Number(price),
-      duration: Number(duration),
+      name: data.name,
+      description: data.description,
+      price: Number(data.price),
+      duration: Number(data.duration),
       image: imageUrl,
     };
 
-    await addService({ serviceDetails, token }).unwrap();
+    console.log(serviceDetails);
 
-    // Close the modal after adding the service
-    setIsOpen(false);
+    try {
+      // Add the service
+      await addService({ serviceDetails, token }).unwrap();
 
-    toast.success("Service Added Successfully")
+      // Close the modal after adding the service
+      setIsOpen(false);
+
+      // Reset form fields
+      setName("");
+      setDescription("");
+      setPrice("");
+      setDuration("");
+      setImage(null);
+
+      // Show success message
+      toast.success("Service Added Successfully");
+    } catch (error) {
+      // Assuming the error might have a 'data' field with a 'message'
+      const err = error as { data?: { message?: string } };
+
+      if (err.data?.message === "This Service is Already Exist") {
+        toast.error(
+          "This Service already exists. Please choose a different name."
+        );
+      } else {
+        // Generic error message for other cases
+        toast.error("Failed to add service. Please try again.");
+      }
+    }
   };
 
   return (
@@ -114,7 +158,7 @@ export function AddServiceModal() {
             Fill out the details to add a new service.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="name" className="text-right">
@@ -122,10 +166,14 @@ export function AddServiceModal() {
               </Label>
               <Input
                 id="name"
+                {...register("name", { required: true })}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="col-span-3"
               />
+              {/* {errors.name?.type === "required" && (
+                <p className="text-red-500">Service name is required</p>
+              )} */}
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="image" className="text-right">
@@ -134,10 +182,15 @@ export function AddServiceModal() {
               <Input
                 id="image"
                 type="file"
+                {...register("image", { required: true })}
                 accept="image/*"
                 onChange={handleImageChange}
                 className="col-span-3"
+                required
               />
+              {/* {errors.image?.type === "required" && (
+                <p className="text-red-500">Service Image is required</p>
+              )} */}
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="description" className="text-right">
@@ -145,10 +198,14 @@ export function AddServiceModal() {
               </Label>
               <Input
                 id="description"
+                {...register("description", { required: true })}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 className="col-span-3"
               />
+              {/* {errors.description?.type === "required" && (
+                <p className="text-red-500">Service Description is required</p>
+              )} */}
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="price" className="text-right">
@@ -156,11 +213,15 @@ export function AddServiceModal() {
               </Label>
               <Input
                 id="price"
+                {...register("price", { required: true })}
                 value={price}
                 onChange={(e) => setPrice(Number(e.target.value))}
                 className="col-span-3"
                 type="number"
               />
+              {/* {errors.price?.type === "required" && (
+                <p className="text-red-500">Service Price is required</p>
+              )} */}
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="duration" className="text-right">
@@ -168,11 +229,15 @@ export function AddServiceModal() {
               </Label>
               <Input
                 id="duration"
+                {...register("duration", { required: true })}
                 value={duration}
                 onChange={(e) => setDuration(Number(e.target.value))}
                 className="col-span-3"
                 type="number"
               />
+              {/* {errors.duration?.type === "required" && (
+                <p className="text-red-500">Service Duration is required</p>
+              )} */}
             </div>
           </div>
           <DialogFooter>

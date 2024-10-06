@@ -6,7 +6,6 @@ import Login from "@/pages/Login/Login";
 import ServiceDetails from "@/pages/ServiceDetails/ServiceDetails";
 import Services from "@/pages/Services/Services";
 import SignUp from "@/pages/SignUp/SignUp";
-import SuccessPage from "@/pages/Success/Success";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import ServiceManagement from "@/pages/AdminDashboard/ServiceManagement/ServiceManagement";
 import AdminLayout from "@/layout/AdminLayout";
@@ -17,6 +16,7 @@ import BookingList from "@/components/UserManagement/BookingList";
 import UpdateProfile from "@/components/UpdateProfiles/UpdateProfiles";
 import AllReviews from "@/pages/Home/Reviews/AllReviews";
 import PrivateRoute from "./PrivateRoutes";
+import MyBookings from "@/pages/Booking/MyBookings";
 
 const router = createBrowserRouter([
   {
@@ -25,8 +25,6 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Home /> },
-      { path: "login", element: <Login /> },
-      { path: "signup", element: <SignUp /> },
       { path: "services", element: <Services /> },
       {
         path: "services/:id",
@@ -45,7 +43,14 @@ const router = createBrowserRouter([
         ),
       },
       { path: "update-profile", element: <UpdateProfile /> },
-      { path: "success", element: <SuccessPage /> },
+      {
+        path: "booking",
+        element: (
+          <PrivateRoute>
+            <MyBookings />
+          </PrivateRoute>
+        ),
+      },
       { path: "reviews", element: <AllReviews /> },
       {
         path: "dashboard",
@@ -101,6 +106,8 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: "/login", element: <Login /> },
+  { path: "/signup", element: <SignUp /> },
   // {
   //   path: "/admin",
   //   element: <AdminLayout />,

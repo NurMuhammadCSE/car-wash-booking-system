@@ -92,7 +92,7 @@ const BookingPage = () => {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Payment failed",
+        title: "Admin Can't Booking Slot",
         text: "Please try again",
         showConfirmButton: true,
       });

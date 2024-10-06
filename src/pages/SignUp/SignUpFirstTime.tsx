@@ -15,6 +15,9 @@ import { Link, useNavigate } from "react-router-dom";
 const SignUp: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  // const { name, email, address, phone, password } = useAppSelector(
+  //   (state) => state.signUp
+  // );
 
   const [signUp] = useSignUpMutation();
   type Inputs = {
@@ -24,7 +27,6 @@ const SignUp: React.FC = () => {
     password: string;
     phone: string;
   };
-
   const {
     register,
     handleSubmit,
@@ -42,19 +44,38 @@ const SignUp: React.FC = () => {
 
     try {
       const user = await signUp(signUpInfo);
-      const err = user?.error as { data?: { message?: string } };
 
-      if (err?.data?.message === "User already exists") {
+      const err = user?.error as { data?: { message?: string } };
+      // console.log(err.data?.message);
+
+      if (err.data?.message === "User already exists") {
         toast.error("User already exists");
       } else {
         toast.success("User Sign Up Successfully");
-        navigate("/login"); // Redirect to login on success
+        navigate("/login");
       }
+      // console.log({ name, email, password, phone, address }, user);
+      // Handle form submission logic
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong!");
     }
   };
+
+  //! First Time
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   const user = await signUp({
+  //     name,
+  //     email,
+  //     address,
+  //     phone,
+  //     password,
+  //   });
+  //   toast.success("User Sign Up Successfully");
+  //   navigate("/login");
+  //   console.log({ name, email, password, phone, address }, user);
+  //   // Handle form submission logic
+  // };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#30415A] via-[#3D6D8D] to-[#4A9BB5]">
@@ -63,7 +84,6 @@ const SignUp: React.FC = () => {
           Sign Up
         </h2>
         <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
-          {/* Name Input */}
           <div>
             <label
               htmlFor="name"
@@ -74,13 +94,15 @@ const SignUp: React.FC = () => {
             <input
               type="text"
               id="name"
+              // value={name}
               {...register("name", { required: true })}
               onChange={(e) => dispatch(setName(e.target.value))}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#30415A] focus:border-[#30415A] sm:text-sm"
             />
-            {errors.name && <p className="text-red-500">Name is required</p>}
+            {errors.name?.type === "required" && (
+              <p className="text-red-500">Name is required</p>
+            )}
           </div>
-          {/* Email Input */}
           <div>
             <label
               htmlFor="email"
@@ -91,16 +113,18 @@ const SignUp: React.FC = () => {
             <input
               type="email"
               id="email"
+              // value={email}
               {...register("email", { required: true })}
               onChange={(e) => dispatch(setEmail(e.target.value))}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#30415A] focus:border-[#30415A] sm:text-sm"
             />
-            {errors.email && <p className="text-red-500">Email is required</p>}
+            {errors.email?.type === "required" && (
+              <p className="text-red-500">Email is required</p>
+            )}
           </div>
-          {/* Address Input */}
           <div>
             <label
-              htmlFor="address"
+              htmlFor="Address"
               className="block text-sm font-medium text-gray-700"
             >
               Address
@@ -108,15 +132,15 @@ const SignUp: React.FC = () => {
             <input
               type="text"
               id="address"
+              // value={address}
               {...register("address", { required: true })}
               onChange={(e) => dispatch(setAddress(e.target.value))}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#30415A] focus:border-[#30415A] sm:text-sm"
             />
-            {errors.address && (
+            {errors.address?.type === "required" && (
               <p className="text-red-500">Address is required</p>
             )}
           </div>
-          {/* Phone Input */}
           <div>
             <label
               htmlFor="phone"
@@ -127,13 +151,15 @@ const SignUp: React.FC = () => {
             <input
               type="text"
               id="phone"
+              // value={phone}
               {...register("phone", { required: true })}
               onChange={(e) => dispatch(setPhone(e.target.value))}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#30415A] focus:border-[#30415A] sm:text-sm"
             />
-            {errors.phone && <p className="text-red-500">Phone is required</p>}
+            {errors.phone?.type === "required" && (
+              <p className="text-red-500">Phone is required</p>
+            )}
           </div>
-          {/* Password Input */}
           <div>
             <label
               htmlFor="password"
@@ -144,21 +170,15 @@ const SignUp: React.FC = () => {
             <input
               type="password"
               id="password"
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 8,
-                  message: "Password must be at least 8 characters",
-                },
-              })}
+              // value={password}
+              {...register("password", { required: true })}
               onChange={(e) => dispatch(setPassword(e.target.value))}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#30415A] focus:border-[#30415A] sm:text-sm"
             />
-            {errors.password && (
-              <p className="text-red-500">{errors.password.message}</p>
+            {errors.password?.type === "required" && (
+              <p className="text-red-500">password is required</p>
             )}
           </div>
-          {/* Submit Button */}
           <div>
             <button
               type="submit"
@@ -168,7 +188,6 @@ const SignUp: React.FC = () => {
             </button>
           </div>
         </form>
-        {/* Redirect to Login */}
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
             Already have an account?{" "}

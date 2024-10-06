@@ -91,9 +91,17 @@ const ServiceDetails = () => {
       </div>
 
       {/* Service Description */}
-      <p className="text-lg mb-6 dark:text-white  text-gray-700">
-        {serviceData?.data?.description}
-      </p>
+      <div className="mb-6">
+        <p className="text-lg mb-4 dark:text-gray-300 text-gray-800 leading-relaxed">
+          {serviceData?.data?.description}
+        </p>
+        <p className="text-lg font-semibold mb-4 dark:text-gray-300 text-gray-800">
+          Price: ${serviceData?.data?.price}
+        </p>
+        <p className="text-lg font-semibold mb-6 dark:text-gray-300 text-gray-800">
+          Duration: {serviceData?.data?.duration} minutes
+        </p>
+      </div>
 
       {/* Available Slots Section */}
       <h2 className="text-2xl font-semibold mb-4">
