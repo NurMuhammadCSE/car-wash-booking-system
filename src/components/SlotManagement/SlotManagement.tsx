@@ -1,6 +1,7 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import  { FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Button } from "../ui/button";
 import {
   Dialog,

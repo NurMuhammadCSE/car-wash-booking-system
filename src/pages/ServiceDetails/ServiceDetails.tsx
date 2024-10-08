@@ -26,6 +26,8 @@ const ServiceDetails = () => {
     isLoading: isServiceLoading,
     isError: isServiceError,
   } = useGetServiceByIdQuery(id!);
+  // console.log(id)
+  // console.log(serviceData)
 
   // Fetch slots for the selected service on the selected date
   const {
@@ -33,6 +35,8 @@ const ServiceDetails = () => {
     isLoading: isSlotsLoading,
     isError: isSlotsError,
   } = useGetSlotsByServiceIdQuery(serviceData?.data?._id);
+
+  // console.log(slotsData)
 
   // Fetch User Data
   const { user } = useAppSelector((state) => state.user);

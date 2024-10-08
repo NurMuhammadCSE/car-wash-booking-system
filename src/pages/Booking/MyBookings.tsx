@@ -17,11 +17,11 @@ import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 const MyBookings = () => {
   const { token } = useAppSelector((state) => state.user);
   const { data: bookings, isLoading } = useGetBookingQuery(token);
-
+  // console.log(bookings);
   if (isLoading)
     return (
       <div className="flex justify-center items-center h-full">
-       <LoadingSpinner></LoadingSpinner>
+        <LoadingSpinner></LoadingSpinner>
       </div>
     );
 

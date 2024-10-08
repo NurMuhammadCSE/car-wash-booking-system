@@ -45,10 +45,13 @@ const authApi = baseApi.injectEndpoints({
       }),
     }),
     getSlotsByServiceId: builder.query({
-      query: (id: string) => ({
-        url: `/slots/availability?serviceId=${id}`,
-        method: "GET",
-      }),
+      query: (id: string) => {
+        console.log(id);
+        return {
+          url: `/slots/availability?serviceId=${id}`,
+          method: "GET",
+        };
+      },
     }),
     getSingleSlotsById: builder.query({
       query: (id: string) => ({
