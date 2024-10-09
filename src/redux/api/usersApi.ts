@@ -14,7 +14,8 @@ const usersApi = baseApi.injectEndpoints({
     }),
     updateUserRole: builder.mutation({
       query: ({ userId, role, token }) => ({
-        url: `/users/${userId}`,
+        // url: `/users/${userId}`,
+        url: `/users/${userId}/role`,
         method: "PATCH",
         body: { role },
         headers: {
