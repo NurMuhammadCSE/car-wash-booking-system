@@ -30,9 +30,9 @@ const router = createBrowserRouter([
       {
         path: "services/:id",
         element: (
-          <PrivateRoute>
+          // <PrivateRoute>
             <ServiceDetails />
-          </PrivateRoute>
+          // </PrivateRoute>
         ),
       },
       {

@@ -9,6 +9,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import {
+  clearSlots,
   deselectSlot,
   selectSlot,
 } from "@/redux/features/slotSlice";
@@ -56,8 +57,8 @@ const ServiceDetails = () => {
     if (selectedSlots.length === 0 || !serviceData || !user.userId) {
       // console.error("Missing booking information");
       // dispatch(selectSlot(""));
-      // dispatch(clearSlots());
-      // navigate("/login");
+      dispatch(clearSlots());
+      navigate("/login");
       return;
     }
 
