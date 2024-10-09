@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { logout, setUser } from "@/redux/features/userSlice";
+import { setLoginEmail, setLoginPassword } from "@/redux/features/loginSlice";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,6 +34,8 @@ const Navbar = () => {
   const handleLogout = () => {
     dispatch(logout());
     dispatch(setUser(""));
+    dispatch(setLoginEmail(""));
+    dispatch(setLoginPassword(""));
     setIsDropdownOpen(false);
   };
 
@@ -77,7 +80,7 @@ const Navbar = () => {
             {!token ? (
               <li>
                 <Link
-                  className="rounded-lg backdrop-blur-[2px] p-1 inline-block text-white hover:bg-white hover:text-black transition duration-300"
+                  className="rounded-lg backdrop-blur-[2px] p-1 inline-block text-white hover:text-black transition duration-300"
                   to="/login"
                 >
                   Login
@@ -97,7 +100,7 @@ const Navbar = () => {
                     <li>
                       <Link
                         to="/update-profile"
-                        className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-200"
+                        className="block w-full rounded-lg text-left px-4 py-2 text-sm hover:bg-gray-200"
                         onClick={() => setIsDropdownOpen(false)}
                       >
                         Profile
@@ -106,7 +109,7 @@ const Navbar = () => {
                     <li>
                       <button
                         onClick={handleLogout}
-                        className="block w-full text-left px-4 py-2 text-sm"
+                        className="block w-full rounded-lg hover:bg-gray-200 text-left px-4 py-2 text-sm"
                       >
                         Logout
                       </button>

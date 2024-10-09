@@ -46,7 +46,7 @@ const authApi = baseApi.injectEndpoints({
     }),
     getSlotsByServiceId: builder.query({
       query: (id: string) => {
-        console.log(id);
+        // console.log(id);
         return {
           url: `/slots/availability?serviceId=${id}`,
           method: "GET",

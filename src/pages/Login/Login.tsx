@@ -2,13 +2,15 @@ import { useLoginMutation } from "@/redux/api/authApi";
 import { setLoginEmail, setLoginPassword } from "@/redux/features/loginSlice";
 import { setToken, setUser } from "@/redux/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import toast from "react-hot-toast";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation()
+  const from = location?.state || '/'
   const dispatch = useAppDispatch();
   const { email, password } = useAppSelector((state) => state.login);
   const [login] = useLoginMutation();
@@ -43,7 +45,7 @@ const Login: React.FC = () => {
         const userToken = jwtDecode(token);
         dispatch(setToken(token));
         dispatch(setUser(userToken));
-        navigate("/");
+        navigate(from);
       }
     } catch (error) {
       console.error(error);

@@ -8,7 +8,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { deselectSlot, selectSlot } from "@/redux/features/slotSlice";
+import {
+  deselectSlot,
+  selectSlot,
+} from "@/redux/features/slotSlice";
 import { Helmet } from "react-helmet-async";
 import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 
@@ -51,7 +54,10 @@ const ServiceDetails = () => {
 
   const handleBooking = async () => {
     if (selectedSlots.length === 0 || !serviceData || !user.userId) {
-      console.error("Missing booking information");
+      // console.error("Missing booking information");
+      // dispatch(selectSlot(""));
+      // dispatch(clearSlots());
+      // navigate("/login");
       return;
     }
 

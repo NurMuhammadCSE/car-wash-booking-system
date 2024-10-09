@@ -16,7 +16,8 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   }
 
   // Redirect to login page if not authenticated
-  return <Navigate to="/login" state={{ from: location }} replace />;
+  // return <Navigate to="/login" state={{ from: location }} replace="true" />;
+  return <Navigate to="/login" state={location.pathname} replace={true} />;
 };
 
 export default PrivateRoute;
