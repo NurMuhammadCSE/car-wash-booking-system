@@ -155,7 +155,7 @@ const AdminSidebar: React.FC = () => {
         } bg-[#30415A] text-white h-screen transition-all duration-300 fixed md:relative z-50`}
       >
         {/* Sidebar Header */}
-        <div className="flex items-center justify-between p-4">
+        <div className="flex items-center justify-between px-2 p-4">
           <div className="text-xl font-bold">{isOpen && "Admin Dashboard"}</div>
           <button
             onClick={toggleSidebar}
