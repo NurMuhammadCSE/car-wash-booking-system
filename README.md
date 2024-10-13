@@ -8,11 +8,11 @@ Check out our live demo:
 ## 🚀 Demo Credentials
 
 ### Admin Login
-- **Email:** `web@programming-hero.com`
+- **Email:** `admin@gmail.com`
 - **Password:** `ph-password`
 
 ### User Login
-- **Email:** `web1@programming-hero.com`
+- **Email:** `user@gmail.com`
 - **Password:** `ph-password`
 
 Feel free to use these credentials to explore the admin and user functionalities of the Car Washing Booking System. Enjoy your experience!
